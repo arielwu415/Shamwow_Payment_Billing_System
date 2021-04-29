@@ -1,4 +1,6 @@
 package application;
+import java.lang.Integer;
+import java.lang.NumberFormatException;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -23,6 +25,7 @@ public class GUI extends Application {
 	//(1) Button button;
 	Stage window;
 	Scene main, order, overhead, employee, shipping;
+	private int column;
 	
 	public static void main(String[] args)
 	{
@@ -94,7 +97,6 @@ public class GUI extends Application {
 		/* ------------------------------
 		 Employee Page
 		 -------------------------------- */
-		
 		Button goBack_button3 = new Button("<< Go back");
 		goBack_button3.setOnAction(e -> window.setScene(main));
 		
@@ -133,7 +135,10 @@ public class GUI extends Application {
 
 		
 		Button submit_employee = new Button("Submit");
-		submit_employee.setOnAction(e -> Employees.newEmployee(id1, fname1, lname1, pay1, position1));
+		submit_employee.setOnAction(e -> 
+			{Employees.newEmployee(id1, fname1, lname1, pay1, position1);
+			System.out.println("Employee data has been added.");
+		});
 		
 		
 		VBox text_fields1 = new VBox(10);
@@ -173,12 +178,36 @@ public class GUI extends Application {
 		Button update_employee = new Button("Update");
 		update_employee.setOnAction(e -> Employees.updateEmployee(id2, fname2, lname2, pay2, position2));
 				
-				
 		VBox text_fields2 = new VBox(10);
 		text_fields2.getChildren().addAll(updateEmpl_title, text_ID2, text_fname2, text_lname2, text_pay2, text_position2, update_employee);
 		
+		// check Employee
+		String id3;
+		Label checkEmpl_title = new Label("Check Emplyee");
 		
-		employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2);
+		TextField text_ID3 = new TextField();
+		text_ID3.setPromptText("Enter emplyee ID");
+		id3 = text_ID3.getText();
+		GridPane.setConstraints(text_ID3,  0, 0);
+		
+		TextField text_column = new TextField();
+		text_column.setPromptText("Enter number you want to check");
+		try {
+			column = Integer.parseInt(text_column.getText());
+		} catch (NumberFormatException ex){
+			
+		}
+		GridPane.setConstraints(text_column,  0, 0);
+		
+		Button check_employee = new Button("Check");
+		check_employee.setOnAction(e -> Employees.check(id3, column));
+		
+		VBox text_fields3 = new VBox(10);
+		text_fields3.getChildren().addAll(checkEmpl_title, text_ID3, text_column, check_employee);
+		
+		
+		
+		employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2, text_fields3);
 		employee = new Scene(employee_layout, 800, 500);
 		
 		
