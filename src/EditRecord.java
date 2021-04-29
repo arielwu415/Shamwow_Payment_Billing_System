@@ -4,8 +4,6 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-
-
 public class EditRecord {
     public static void main(String[] args) {
         String filepath = "test.txt";
@@ -16,6 +14,9 @@ public class EditRecord {
         editRecord(filepath, IDs, newName, newAge);
 
     }
+
+    /* edits existing record
+     * filepath = file to open, idSearch = id to match to, newName = new name to store, newAge = new age to store */
     public static void editRecord(String filepath, String idSearch, String newName, String newAge)
     {
         String tempFile = "temp.txt";

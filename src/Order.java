@@ -1,16 +1,22 @@
-public class Order extends Shipping{
-    public static void newOrder(String id, String units, String shippingCompanyID){
+public class Order extends Shipping
+{
+
+    public static void newOrder(String id, String units, String shippingCompanyID) {
         String filepath = "order.csv";
         String shippingCosts = query(shippingCompanyID, 4);
         String[] input = {id, units, shippingCompanyID, shippingCosts};
         saveRecord(input, filepath);
     }
-    public static String checkOrder(String id, int columnSearch,){ //column 0 = ID, 1=units, 2 =shippingCompanyID, 3=shippingCosts
+
+    //column 0 = ID, 1 = units, 2 = shippingCompanyID, 3 = shippingCosts
+    public static String checkOrder(String id, int columnSearch,) {
         String filepath = "order.csv";
         int columnNum = 3;
         return query(filepath, id, columnSearch, columnNum);
     }
-    public static void updateOrder(String id, String units, String shippingCompanyID){//put -1 for fields that remain the same except for id
+
+    //put -1 for fields that remain the same except for id
+    public static void updateOrder(String id, String units, String shippingCompanyID) {
         String filepath = "order.csv";
         String[] newValue = new String[4];
         String shippingCosts = query(shippingCompanyID, 4);

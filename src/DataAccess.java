@@ -3,8 +3,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.*;
-public class DataAccess {
-    public static void main(String[] args) { //CAN DELETE: TEST UTILITY 
+
+public class DataAccess
+{
+    private static Scanner x;
+
+    //CAN DELETE: TEST UTILITY
+    public static void main(String[] args) { 
         String filepath = "test.txt";
         String searchTerm = "1234";
         //String newValue = "1324";
@@ -13,10 +18,12 @@ public class DataAccess {
         System.out.println(sumColumn(filepath, 3, 5));
         
     }
-    private static Scanner x;
+    
 
-    public static void saveRecord(String[] data, String filepath) //adds new line 
-    {                                                             //data[] = array to be added, filepath = file to be added
+    /* adds new line into file
+     * data[] = array to be added, filepath = file to be added */
+    public static void saveRecord(String[] data, String filepath)
+    {
         try
         {
             FileWriter fw = new FileWriter(filepath, true);
@@ -46,8 +53,11 @@ public class DataAccess {
         }
     }
 
-    public static String query(String filepath, String idSearch, int columnNumber, int fields) //Searches through line by line to find id, then returns specified id 
-    {                                                 //filepath = file to open, idSearch = id to match to, columnNumber = which column to return, fields = number of fields
+
+    /* Searches through line by line to find id, then returns specified id
+     * filepath = file to open, idSearch = id to match to, columnNumber = which column to return, fields = number of fields */
+    public static String query(String filepath, String idSearch, int columnNumber, int fields)
+    {
         String[] storeData = new String[fields]; 
         try {
             x = new Scanner(new File(filepath));
@@ -77,9 +87,13 @@ public class DataAccess {
         return ("Not Found");
     }
 
-    public static void editRecord(String filepath, String[] newValues) //replaces row corresponding to id given in newValues[0] with corresponding values in newValues[i]
-    {                                                                  //-1 is taken to be remain the same
-        String tempFile = "temp.txt";                                  //filepath = file to open, newValues[] = array containing new values or -1
+
+    /* replaces row corresponding to id given in newValues[0] with corresponding values in newValues[i]
+     * -1 is taken to be remain the same
+     * filepath = file to open, newValues[] = array containing new values or -1 */
+    public static void editRecord(String filepath, String[] newValues) 
+    {
+        String tempFile = "temp.txt";
         File oldFile = new File(filepath);
         File newFile = new File(tempFile);
         String[] storeData = new String[newValues.length]; 
@@ -128,8 +142,11 @@ public class DataAccess {
         }
     }
 
-    public static int sumRow(String filepath, String idSearch, int fields) //sums total of any given row
-    {                                                                      //filepath = file to open; idSearch = which row to sum, fields = # of fields
+
+    /* sums total of any given row
+     * filepath = file to open; idSearch = which row to sum, fields = # of fields */
+    public static int sumRow(String filepath, String idSearch, int fields)
+    {
         String[] storeData = new String[fields]; 
         int sum = 0; 
         try {
@@ -157,8 +174,11 @@ public class DataAccess {
         return sum;
     }
 
-    public static int sumColumn(String filepath, int columnNum, int fields) //sums total of any given column; filepath = file to open;
-    {                                                                       //filepath = file to open, columnNum = which column to sum, fields = # of fields
+
+    /* sums total of any given column; filepath = file to open;
+     * filepath = file to open, columnNum = which column to sum, fields = # of fields */
+    public static int sumColumn(String filepath, int columnNum, int fields)
+    {
         String[] storeData = new String[fields]; 
         int sum = 0; 
         try {
