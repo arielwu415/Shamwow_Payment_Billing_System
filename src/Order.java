@@ -1,3 +1,4 @@
+package application;
 public class Order extends Shipping
 {
 
@@ -9,7 +10,7 @@ public class Order extends Shipping
     }
 
     //column 0 = ID, 1 = units, 2 = shippingCompanyID, 3 = shippingCosts
-    public static String checkOrder(String id, int columnSearch,) {
+    public static String checkOrder(String id, int columnSearch) {
         String filepath = "order.csv";
         int columnNum = 3;
         return query(filepath, id, columnSearch, columnNum);
