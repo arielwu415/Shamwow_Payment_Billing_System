@@ -1,4 +1,4 @@
-package sample;
+package application;
 import java.lang.Integer;
 import java.lang.NumberFormatException;
 
@@ -96,17 +96,21 @@ public class GUI extends Application {
         text_shippingID1.setPromptText("Shipping company ID");
         shippingID1 = text_shippingID1.getText();
 
-
+        Label order_label1 = new Label("");
         Button submit_order = new Button("Submit");
         submit_order.setOnAction(e -> {
-            Order.newOrder(orderID1, units1, shippingID1);
-            System.out.println("New Order data has been added.");
+            //Order.newOrder(orderID1, units1, shippingID1);
+        	order_label1.setText("New order has been created");
+            System.out.println("New order has been created");
+            text_orderID1.clear();
+            text_units1.clear();
+            text_shippingID1.clear();
         });
 
 
         VBox newOrder_texts = new VBox(10);
-        newOrder_texts.setPrefWidth(160);
-        newOrder_texts.getChildren().addAll(newOrder_title, text_orderID1, text_units1, text_shippingID1, submit_order);
+        newOrder_texts.setPrefWidth(200);
+        newOrder_texts.getChildren().addAll(newOrder_title, text_orderID1, text_units1, text_shippingID1, submit_order, order_label1);
 
         // Update Order
         String orderID2, units2, shippingID2;
@@ -125,15 +129,21 @@ public class GUI extends Application {
         text_shippingID2.setPromptText("Shipping company ID");
         shippingID2 = text_shippingID2.getText();
 
+        
+        Label order_label2 = new Label("");
         Button update_order = new Button("Update");
         update_order.setOnAction(e -> {
-            Order.updateOrder(orderID2, units2, shippingID2);
-            System.out.println("Order data has been updated.");
+            //Order.updateOrder(orderID2, units2, shippingID2);
+        	order_label2.setText("Order data has been updated");
+            System.out.println("Order data has been updated");
+            text_orderID2.clear();
+            text_units2.clear();
+            text_shippingID2.clear();
         });
 
         VBox updateOrder_texts = new VBox(10);
-        updateOrder_texts.setPrefWidth(160);
-        updateOrder_texts.getChildren().addAll(updateOrder_title, text_orderID2, text_units2, text_shippingID2, update_order);
+        updateOrder_texts.setPrefWidth(200);
+        updateOrder_texts.getChildren().addAll(updateOrder_title, text_orderID2, text_units2, text_shippingID2, update_order, order_label2);
 
         // Check Order
         String orderID3;
@@ -149,13 +159,20 @@ public class GUI extends Application {
             order_column = Integer.parseInt(text_orderColumn.getText());
         } catch (NumberFormatException ex) { }
 
-
+        
+        Label order_label3 = new Label("");
         Button check_order = new Button("Check");
-        check_order.setOnAction(e -> Order.checkOrder(orderID3, order_column));
+        check_order.setOnAction(e -> {
+        	String search_order = Order.checkOrder(orderID3, order_column);
+        	order_label3.setText(search_order);
+        	text_orderID3.clear();
+        	text_orderColumn.clear();
+        });
 
 
         VBox checkOrder_texts = new VBox(10);
-        checkOrder_texts.getChildren().addAll(checkOrder_title, text_orderID3, text_orderColumn, check_order);
+        checkOrder_texts.setPrefWidth(200);
+        checkOrder_texts.getChildren().addAll(checkOrder_title, text_orderID3, text_orderColumn, check_order, order_label3);
 
 
         order_layout.getChildren().addAll(goBack_button1, newOrder_texts, updateOrder_texts, checkOrder_texts);
@@ -195,25 +212,32 @@ public class GUI extends Application {
         text_machinery1.setPromptText("Machinery");
         machinery1 = text_machinery1.getText();
 
-
+        Label overhead_label1 = new Label("");
         Button submit_manufacturer = new Button("Submit");
         submit_manufacturer.setOnAction(e -> {
-            Overhead.newManufacturer(manufacturer1, rent1, utilities1, text_insurance1, text_machinery1);
-            System.out.println("Manufacturer data has been updated.");
+            Overhead.newManufacturer(manufacturer1, rent1, utilities1, insurance1, machinery1);
+            overhead_label1.setText("Manufacturer data has been added");
+            System.out.println("Manufacturer data has been added");
+            text_manufacturer1.clear();
+            text_rent1.clear();
+            text_utilities1.clear();
+            text_insurance1.clear();
+            text_machinery1.clear();
         });
 
         VBox newManuf_texts = new VBox(10);
-        newManuf_texts.getChildren().addAll(newOverhead_title, text_manufacturer1, text_rent1, text_utilities1, text_insurance1, text_machinery1, submit_manufacturer);
+        newManuf_texts.setPrefWidth(200);
+        newManuf_texts.getChildren().addAll(newOverhead_title, text_manufacturer1, text_rent1, text_utilities1, text_insurance1, text_machinery1, submit_manufacturer, overhead_label1);
 
 
         // Update Manufacturer
-        String manufacture2, rent2, utilities2, insurance2, machinery2;
+        String manufacturer2, rent2, utilities2, insurance2, machinery2;
         Label updateOverhead_title = new Label("Update Existing Manufacturer");
 
         TextField text_manufacturer2 = new TextField();
         text_manufacturer2.setPromptText("Manufacturer");
         text_manufacturer2.setPrefColumnCount(10);
-        manufacture2 = text_manufacturer2.getText();
+        manufacturer2 = text_manufacturer2.getText();
 
         TextField text_rent2 = new TextField();
         text_rent2.setPromptText("Rent");
@@ -232,14 +256,22 @@ public class GUI extends Application {
         machinery2 = text_machinery2.getText();
 
 
+        Label overhead_label2 = new Label("");
         Button update_manufacturer = new Button("Submit");
         update_manufacturer.setOnAction(e -> {
-            Overhead.newManufacturer(manufacturer1, rent1, utilities1, text_insurance1, text_machinery1);
-            System.out.println("Manufacturer data has been updated.");
+            Overhead.newManufacturer(manufacturer2, rent2, utilities2, insurance2, machinery2);
+            overhead_label2.setText("Manufacturer data has been updated");
+            System.out.println("Manufacturer data has been updated");
+            text_manufacturer2.clear();
+            text_rent2.clear();
+            text_utilities2.clear();
+            text_insurance2.clear();
+            text_machinery2.clear();
         });
 
         VBox updateManuf_texts = new VBox(10);
-        updateManuf_texts.getChildren().addAll(updateOverhead_title, text_manufacturer2, text_rent2, text_utilities2, text_insurance2, text_machinery2, update_manufacturer);
+        updateManuf_texts.setPrefWidth(200);
+        updateManuf_texts.getChildren().addAll(updateOverhead_title, text_manufacturer2, text_rent2, text_utilities2, text_insurance2, text_machinery2, update_manufacturer, overhead_label2);
 
 
         // Check Manufacturer
@@ -256,13 +288,19 @@ public class GUI extends Application {
             manuf_column = Integer.parseInt(text_manufColumn.getText());
         } catch (NumberFormatException ex) { }
 
-
+        Label overhead_label3 = new Label("");
         Button check_manufacturer = new Button("Check");
-        check_manufacturer.setOnAction(e -> Overhead.check(manufacturer3, manuf_column));
+        check_manufacturer.setOnAction(e -> {
+        	String search_overhead = Overhead.check(manufacturer3, manuf_column);
+        	overhead_label3.setText(search_overhead);
+        	text_manufacturer3.clear();
+        	text_manufColumn.clear();
+        });
 
 
         VBox checkManuf_texts = new VBox(10);
-        checkManuf_texts.getChildren().addAll(checkManuf_title, text_manufacturer3, text_manufColumn, check_manufacturer);
+        //checkManuf_texts.setPrefWidth(200);
+        checkManuf_texts.getChildren().addAll(checkManuf_title, text_manufacturer3, text_manufColumn, check_manufacturer, overhead_label3);
 
 
         overhead_layout.getChildren().addAll(goBack_button2, newManuf_texts, updateManuf_texts, checkManuf_texts);
@@ -303,17 +341,23 @@ public class GUI extends Application {
         text_position1.setPromptText("Position");
         position1 = text_position1.getText();
 
-
+        Label employee_label1 = new Label("");
         Button submit_employee = new Button("Submit");
         submit_employee.setOnAction(e -> {
             Employees.newEmployee(id1, fname1, lname1, pay1, position1);
-            System.out.println("Employee data has been added.");
+            employee_label1.setText("Employee data has been added");
+            System.out.println("Employee data has been added");
+            text_ID1.clear();
+            text_fname1.clear();
+            text_lname1.clear();
+            text_pay1.clear();
+            text_position1.clear();
         });
 
 
         VBox text_fields1 = new VBox(10);
-        //text_fields1.setPrefWidth(160);
-        text_fields1.getChildren().addAll(newEmpl_title, text_ID1, text_fname1, text_lname1, text_pay1, text_position1, submit_employee);
+        text_fields1.setPrefWidth(200);
+        text_fields1.getChildren().addAll(newEmpl_title, text_ID1, text_fname1, text_lname1, text_pay1, text_position1, submit_employee, employee_label1);
 
         // Update Employee
         String id2, fname2, lname2, pay2, position2;
@@ -340,15 +384,22 @@ public class GUI extends Application {
         text_position2.setPromptText("Position");
         position2 = text_position2.getText();
 
-
+        Label employee_label2 = new Label("");
         Button update_employee = new Button("Update");
         update_employee.setOnAction(e -> {
             Employees.updateEmployee(id2, fname2, lname2, pay2, position2);
-            System.out.println("Employee info has been updated.");
+            employee_label2.setText("Employee info has been updated");
+            System.out.println("Employee info has been updated");
+            text_ID2.clear();
+            text_fname2.clear();
+            text_lname2.clear();
+            text_pay2.clear();
+            text_position2.clear();
         });
 
         VBox text_fields2 = new VBox(10);
-        text_fields2.getChildren().addAll(updateEmpl_title, text_ID2, text_fname2, text_lname2, text_pay2, text_position2, update_employee);
+        text_fields2.setPrefWidth(200);
+        text_fields2.getChildren().addAll(updateEmpl_title, text_ID2, text_fname2, text_lname2, text_pay2, text_position2, update_employee, employee_label2);
 
         // check Employee
         String id3;
@@ -364,13 +415,18 @@ public class GUI extends Application {
             employee_column = Integer.parseInt(text_column.getText());
         } catch (NumberFormatException ex) { }
 
-
+        
+        Label employee_label3 = new Label("");
         Button check_employee = new Button("Check");
-        check_employee.setOnAction(e -> Employees.check(id3, employee_column));
+        check_employee.setOnAction(e -> {
+        	String search_employee = Employees.check(id3, employee_column);
+        	employee_label3.setText(search_employee);
+        });
 
 
         VBox text_fields3 = new VBox(10);
-        text_fields3.getChildren().addAll(checkEmpl_title, text_ID3, text_column, check_employee);
+        text_fields3.setPrefWidth(200);
+        text_fields3.getChildren().addAll(checkEmpl_title, text_ID3, text_column, check_employee, employee_label3);
 
 
         employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2, text_fields3);
@@ -382,8 +438,9 @@ public class GUI extends Application {
 		 ----------------------------------------------------------------------------- */
         Button goBack_button4 = new Button("<< Go back");
         goBack_button4.setOnAction(e -> window.setScene(main));
+        
+        // New Shipping
         String shipID, shipName, shipAddress, shipPhone, shipCost;
-
         Label shipping_title = new Label("New Shipping Information");
 
         TextField text_ShipID = new TextField();
@@ -406,18 +463,27 @@ public class GUI extends Application {
         TextField text_shipCost = new TextField();
         text_shipCost.setPromptText("Cost");
         shipCost = text_shipCost.getText();
-
+        
+        
+        Label shipping_label1 = new Label("");
         Button complete_shipDetails = new Button("Complete");
         complete_shipDetails.setOnAction(e -> {
             Shipping.newShipping(shipID, shipName, shipAddress, shipPhone, shipCost);
-            System.out.println("Shipping data has been added.");
+            shipping_label1.setText("Shipping data has been added");
+            System.out.println("Shipping data has been added");
+            text_ShipID.clear();
+            text_shipAddy.clear();
+            text_shipPhone.clear();
+            text_shipCost.clear();
         });
 
         VBox vBoxShip = new VBox(10);
-        vBoxShip.getChildren().addAll(shipping_title, text_ShipID, text_shipName, text_shipAddy, text_shipPhone, text_shipCost, complete_shipDetails);
+        vBoxShip.setPrefWidth(200);
+        vBoxShip.getChildren().addAll(shipping_title, text_ShipID, text_shipName, text_shipAddy, text_shipPhone, text_shipCost, complete_shipDetails, shipping_label1);
 
+        
+        // Update Shipping
         String shipID1, shipName1, shipAddress1, shipPhone1, shipCost1;
-
         Label shipping_title1 = new Label("Update Shipping Information");
 
         TextField text_ShipID1 = new TextField();
@@ -441,15 +507,25 @@ public class GUI extends Application {
         text_shipCost1.setPromptText("Cost");
         shipCost1 = text_shipCost1.getText();
 
+        
+        Label shipping_label2 = new Label("");
         Button update_shipDetails1 = new Button("Update");
         complete_shipDetails.setOnAction(e -> {
             Shipping.updateShipping(shipID1, shipName1, shipAddress1, shipPhone1, shipCost1);
-            System.out.println("Shipping data has been updated.");
+            shipping_label2.setText("Shipping data has been updated");
+            System.out.println("Shipping data has been updated");
+            text_ShipID1.clear();
+            text_shipAddy1.clear();
+            text_shipPhone1.clear();
+            text_shipCost1.clear();
         });
 
         VBox vBoxShip1 = new VBox(10);
-        vBoxShip1.getChildren().addAll(shipping_title1, text_ShipID1, text_shipName1, text_shipAddy1, text_shipPhone1, text_shipCost1, update_shipDetails1);
+        vBoxShip1.setPrefWidth(200);
+        vBoxShip1.getChildren().addAll(shipping_title1, text_ShipID1, text_shipName1, text_shipAddy1, text_shipPhone1, text_shipCost1, update_shipDetails1, shipping_label2);
 
+        
+        // Check Shipping
         String shipID3;
         Label checkShip_title = new Label("Check Shipping Information");
 
@@ -464,18 +540,26 @@ public class GUI extends Application {
         } catch (NumberFormatException ex) { }
 
 
+        Label shipping_label3 = new Label("");
         Button check_shipping = new Button("Check");
-        check_shipping.setOnAction(e -> Shipping.check(shipID3, ship_column));
+        check_shipping.setOnAction(e -> {
+        	String search_shipping = Shipping.check(shipID3, ship_column);
+        	shipping_label3.setText(search_shipping);
+        	text_shipID3.clear();
+        	text_shipColumn.clear();
+        });
 
 
         VBox vboxShipCheck = new VBox(10);
-        vboxShipCheck.getChildren().addAll(checkShip_title, text_shipID3, text_shipColumn, check_shipping);
+        vboxShipCheck.setPrefWidth(200);
+        vboxShipCheck.getChildren().addAll(checkShip_title, text_shipID3, text_shipColumn, check_shipping, shipping_label3);
 
 
         HBox hboxShipping = new HBox(10);
-        hboxShipping.getChildren().addAll(vBoxShip, vBoxShip1, vboxShipCheck);
+        hboxShipping.getChildren().addAll(goBack_button4, vBoxShip, vBoxShip1, vboxShipCheck);
 
         shipping = new Scene(hboxShipping, 800, 500);
+        
         window.setScene(main);
         window.show();
 
