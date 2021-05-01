@@ -56,10 +56,12 @@ public class GUI extends Application {
 
         Button shipping_button = new Button("Shipping");
         shipping_button.setOnAction(e -> window.setScene(shipping));
+Button exit_button = new Button("Exit");
+        exit_button.setOnAction(e -> System.exit(0));
 
 
         VBox button_list = new VBox(10);
-        button_list.getChildren().addAll(order_button, employee_button, overhead_button, shipping_button);
+        button_list.getChildren().addAll(order_button, employee_button, overhead_button, shipping_button,exit_button);
         //button_list.setPadding(new Insets(10, 0, 0, 10));
 
         // make layout for main page
