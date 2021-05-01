@@ -4,7 +4,7 @@ public class Order extends Shipping
 
     public static void newOrder(String id, String units, String shippingCompanyID) {
         String filepath = "order.csv";
-        String shippingCosts = query(shippingCompanyID, 4);
+        String shippingCosts = check(shippingCompanyID, 4);
         String[] input = {id, units, shippingCompanyID, shippingCosts};
         saveRecord(input, filepath);
     }
