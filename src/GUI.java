@@ -1,4 +1,5 @@
 package application;
+ 
 import java.lang.Integer;
 import java.lang.NumberFormatException;
 
@@ -16,6 +17,25 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TextField;
+import java.io.FileInputStream; 
+import java.io.FileNotFoundException; 
+import javafx.scene.Group; 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.canvas.*;
+import javafx.scene.web.*;
+import javafx.scene.layout.*;
+import javafx.scene.image.*;
+import java.io.*;
+import javafx.geometry.*;
+import javafx.scene.Group;   
 
 
 
@@ -32,7 +52,7 @@ public class GUI extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception
+    public  void start(Stage primaryStage) throws Exception
     {
         window = primaryStage;
         window.setTitle("Shamwow - Billing and Payment System");
@@ -44,6 +64,8 @@ public class GUI extends Application {
 		/* -----------------------------------------------------------------------------
 		 Main Page
 		 ----------------------------------------------------------------------------- */
+		
+    
         // list of buttons in the main page
         Button order_button = new Button("Order");
         order_button.setOnAction(e -> window.setScene(order));
@@ -56,7 +78,7 @@ public class GUI extends Application {
 
         Button shipping_button = new Button("Shipping");
         shipping_button.setOnAction(e -> window.setScene(shipping));
-Button exit_button = new Button("Exit");
+        Button exit_button = new Button("Exit");
         exit_button.setOnAction(e -> System.exit(0));
 
 
@@ -66,7 +88,23 @@ Button exit_button = new Button("Exit");
 
         // make layout for main page
         HBox main_layout = new HBox(50);
-        main_layout.getChildren().addAll(button_list, welcomeMsg); // join buttons and welcomeMsg
+        try {
+           Image image = new Image(new FileInputStream("C:\\Users\\Jason Coen\\Downloads\\desktop backrounds\\6e8e5fc722a47865e3d299a7b8090d5b.w973.h765.jpg"));
+          
+           BackgroundImage backgroundimage = new BackgroundImage(image, 
+                                             BackgroundRepeat.NO_REPEAT, 
+                                             BackgroundRepeat.NO_REPEAT, 
+                                             BackgroundPosition.DEFAULT, 
+                                                BackgroundSize.DEFAULT);
+  
+            // create Background
+            Background background = new Background(backgroundimage);
+  
+            // set background
+            main_layout.setBackground(background);
+           main_layout.getChildren().addAll( button_list,welcomeMsg);
+        } catch (FileNotFoundException  ex) {main_layout.getChildren().addAll(button_list, welcomeMsg);  }
+        // join buttons and welcomeMsg
         //main_layout.setAlignment(Pos.TOP_CENTER);
         main = new Scene(main_layout, 800, 500);
 
