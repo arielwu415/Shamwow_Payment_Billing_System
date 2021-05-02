@@ -20,7 +20,7 @@ public class Order extends Shipping
     public static void updateOrder(String id, String units, String shippingCompanyID) {
         String filepath = "order.csv";
         String[] newValue = new String[4];
-        String shippingCosts = query(shippingCompanyID, 4);
+        String shippingCosts = check(shippingCompanyID, 4);
         if(shippingCompanyID== "-1"){
             shippingCosts ="-1";
         }
