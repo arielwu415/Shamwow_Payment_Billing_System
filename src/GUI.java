@@ -142,6 +142,37 @@ public class GUI extends Application {
 		 ----------------------------------------------------------------------------- */
         Button goBack_button1 = new Button("<< Go back");
         goBack_button1.setOnAction(e -> window.setScene(main));
+        
+        HBox order_layout = new HBox(20);
+        
+        Label order_step1 = new Label("Enter Number of Units Wanted:");
+        TextField units =  new TextField();
+        
+        Label order_step2 = new Label("Choose Shipping Company:");
+        TextField shipping_company =  new TextField();
+        shipping_company.setPromptText("Enter company ID");
+        
+        Label order_step3 = new Label("Choose Manufacturer:");
+        TextField manufacturer =  new TextField();
+        manufacturer.setPromptText("Enter manufacturer ID");
+        
+        Label order_step4 = new Label("Add Employee Details:");
+        TextField employee_details =  new TextField();
+        employee_details.setPromptText("Enter employee ID");
+        
+        
+        Button submit_order = new Button("Submit");
+        
+        
+        VBox order_steps = new VBox(10);
+        order_steps.setPrefWidth(360);
+        order_steps.getChildren().addAll(order_step1, units, order_step2, shipping_company, order_step3, manufacturer, order_step4, employee_details, submit_order);
+        
+        order_layout.getChildren().addAll(goBack_button1, order_steps);
+        order = new Scene(order_layout, 800, 500);
+        
+        /*Button goBack_button1 = new Button("<< Go back");
+        goBack_button1.setOnAction(e -> window.setScene(main));
 
 
         HBox order_layout = new HBox(20);
@@ -244,7 +275,7 @@ public class GUI extends Application {
 
 
         order_layout.getChildren().addAll(goBack_button1, newOrder_texts, updateOrder_texts, checkOrder_texts);
-        order = new Scene(order_layout, 800, 500);
+        order = new Scene(order_layout, 800, 500);*/
 
 
 		/* -----------------------------------------------------------------------------
