@@ -43,7 +43,7 @@ import javafx.scene.Group;
 public class GUI extends Application {
 
     Stage window;
-    Scene main, order, overhead, employee, shipping;
+    Scene main, order, data, overhead, employee, shipping;
     private int employee_column, manuf_column, order_column, ship_column; // For check functions
 
     public static void main(String[] args)
@@ -67,8 +67,11 @@ public class GUI extends Application {
 		
     
         // list of buttons in the main page
-        Button order_button = new Button("Order");
+        Button order_button = new Button("Make New Order");
         order_button.setOnAction(e -> window.setScene(order));
+        
+        Button data_button = new Button("Enter Data");
+        data_button.setOnAction(e -> window.setScene(data));
 
         Button overhead_button = new Button("Overhead");
         overhead_button.setOnAction(e -> window.setScene(overhead));
@@ -78,19 +81,20 @@ public class GUI extends Application {
 
         Button shipping_button = new Button("Shipping");
         shipping_button.setOnAction(e -> window.setScene(shipping));
+        
         Button exit_button = new Button("Exit");
         exit_button.setOnAction(e -> System.exit(0));
 
 
         VBox button_list = new VBox(10);
-        button_list.getChildren().addAll(order_button, employee_button, overhead_button, shipping_button,exit_button);
+        button_list.setPrefWidth(200);
+        button_list.getChildren().addAll(order_button, data_button, exit_button);
         //button_list.setPadding(new Insets(10, 0, 0, 10));
 
         // make layout for main page
         HBox main_layout = new HBox(50);
         try {
            Image image = new Image(new FileInputStream("C:\\Users\\Jason Coen\\Downloads\\desktop backrounds\\6e8e5fc722a47865e3d299a7b8090d5b.w973.h765.jpg"));
-          
            BackgroundImage backgroundimage = new BackgroundImage(image, 
                                              BackgroundRepeat.NO_REPEAT, 
                                              BackgroundRepeat.NO_REPEAT, 
@@ -99,16 +103,40 @@ public class GUI extends Application {
   
             // create Background
             Background background = new Background(backgroundimage);
-  
             // set background
             main_layout.setBackground(background);
-           main_layout.getChildren().addAll( button_list,welcomeMsg);
-        } catch (FileNotFoundException  ex) {main_layout.getChildren().addAll(button_list, welcomeMsg);  }
-        // join buttons and welcomeMsg
+            main_layout.getChildren().addAll( button_list, welcomeMsg);
+           
+        } catch (FileNotFoundException  ex) {
+        	
+        	// join buttons and welcomeMsg
+        	main_layout.getChildren().addAll(button_list, welcomeMsg);
+        }
+        
         //main_layout.setAlignment(Pos.TOP_CENTER);
         main = new Scene(main_layout, 800, 500);
 
-
+        
+        /* -----------------------------------------------------------------------------
+		 Data Page
+		 ----------------------------------------------------------------------------- */
+        Label dataPageMsg = new Label("Please choose the data you would like to add/update/remove."
+                + "\n\nClick on the buttons on the left to proceed.");
+        
+        Button goBack_button = new Button("<< Go back");
+        goBack_button.setOnAction(e -> window.setScene(main));
+        
+        Button exit_button1 = new Button("Exit");
+        exit_button1.setOnAction(e -> System.exit(0));
+        
+        VBox data_buttonlist = new VBox(10);
+        data_buttonlist.setPrefWidth(200);
+        data_buttonlist.getChildren().addAll(goBack_button, overhead_button, employee_button, shipping_button, exit_button1);
+        
+        HBox data_layout = new HBox(50);
+        data_layout.getChildren().addAll(data_buttonlist, dataPageMsg);
+        data = new Scene(data_layout, 800, 500);
+        
 		/* -----------------------------------------------------------------------------
 		 Order Page
 		 ----------------------------------------------------------------------------- */
@@ -223,7 +251,7 @@ public class GUI extends Application {
 		 Overhead Page
 		 ----------------------------------------------------------------------------- */
         Button goBack_button2 = new Button("<< Go back");
-        goBack_button2.setOnAction(e -> window.setScene(main));
+        goBack_button2.setOnAction(e -> window.setScene(data));
 
         HBox overhead_layout = new HBox(20);
 
@@ -351,7 +379,7 @@ public class GUI extends Application {
 		 Employee Page
 		 ----------------------------------------------------------------------------- */
         Button goBack_button3 = new Button("<< Go back");
-        goBack_button3.setOnAction(e -> window.setScene(main));
+        goBack_button3.setOnAction(e -> window.setScene(data));
 
 
         HBox employee_layout = new HBox(20);
@@ -477,7 +505,7 @@ public class GUI extends Application {
 		 Shipping Page
 		 ----------------------------------------------------------------------------- */
         Button goBack_button4 = new Button("<< Go back");
-        goBack_button4.setOnAction(e -> window.setScene(main));
+        goBack_button4.setOnAction(e -> window.setScene(data));
         
         // New Shipping
         String shipID, shipName, shipAddress, shipPhone, shipCost;
