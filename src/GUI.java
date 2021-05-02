@@ -93,8 +93,8 @@ public class GUI extends Application {
 
         // make layout for main page
         HBox main_layout = new HBox(50);
-        try {
-           Image image = new Image(new FileInputStream("C:\\Users\\Jason Coen\\Downloads\\desktop backrounds\\6e8e5fc722a47865e3d299a7b8090d5b.w973.h765.jpg"));
+       // try {
+           Image image = new Image("https://cdn.discordapp.com/attachments/551214454587654155/838517821742252143/6e8e5fc722a47865e3d299a7b8090d5b.w973.h765.jpg");
            BackgroundImage backgroundimage = new BackgroundImage(image, 
                                              BackgroundRepeat.NO_REPEAT, 
                                              BackgroundRepeat.NO_REPEAT, 
@@ -107,11 +107,11 @@ public class GUI extends Application {
             main_layout.setBackground(background);
             main_layout.getChildren().addAll( button_list, welcomeMsg);
            
-        } catch (FileNotFoundException  ex) {
+       // } catch (FileNotFoundException  ex) {
         	
         	// join buttons and welcomeMsg
-        	main_layout.getChildren().addAll(button_list, welcomeMsg);
-        }
+        //	main_layout.getChildren().addAll(button_list, welcomeMsg);
+       // }
         
         //main_layout.setAlignment(Pos.TOP_CENTER);
         main = new Scene(main_layout, 800, 500);
