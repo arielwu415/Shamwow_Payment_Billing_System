@@ -1,17 +1,24 @@
 import java.io.File;
 import java.util.Scanner;
+//peer programmed by Daniel Yoon and David Kim
 
 public class general extends DataAccess{
     public static int shippingCosts(){
-        String filepath = "shipping.csv";
+        String filepath = "order.csv";
         return sumColumn(filepath, 3, 4);
     }
     public static int rawMaterialsCost(){
         File filepath = new File("materialCost.csv");
-        Scanner scn = new Scanner(filepath);
-        int matCost = Integer.parseInt(scn.nextLine());
-        return matCost;
-
+        try{
+            Scanner scn = new Scanner(filepath);
+            scn.nextLine();
+            int matCost = Integer.parseInt(scn.nextLine());
+            scn.close();
+            return matCost;
+        }
+        catch(Exception e){
+            return -1;
+        }
     }
     public static int laborCost(){
         String filepath = "Employees.csv";

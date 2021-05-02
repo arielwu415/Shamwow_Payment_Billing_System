@@ -1,3 +1,4 @@
+//peer programmed by Daniel Yoon and David Kim
 public class Overhead extends DataAccess
 {
     public static void newManufacturer(String manufacturer, String rent, String utilities, String insurance, String machinery) {

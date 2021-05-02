@@ -1,3 +1,4 @@
+//peer programmed by Daniel Yoon and David Kim
 public class Shipping extends DataAccess
 {
     public static void newShipping(String id, String name, String address, String phoneNumber, String costs) {
