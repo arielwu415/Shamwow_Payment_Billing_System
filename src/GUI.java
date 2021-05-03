@@ -2,6 +2,8 @@ package application;
  
 import java.lang.Integer;
 import java.lang.NumberFormatException;
+import java.io.*;
+
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -11,28 +13,17 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.control.TextField;
-import java.io.FileInputStream; 
-import java.io.FileNotFoundException; 
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.control.*;
 import javafx.scene.Group; 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import javafx.scene.canvas.*;
 import javafx.scene.web.*;
-import javafx.scene.layout.*;
 import javafx.scene.image.*;
-import java.io.*;
-import javafx.geometry.*;
-import javafx.scene.Group;   
+import javafx.scene.Group;  
+import javafx.scene.text.*;
 
 
 
@@ -57,10 +48,13 @@ public class GUI extends Application {
         window = primaryStage;
         window.setTitle("Shamwow - Billing and Payment System");
 
-        Label welcomeMsg = new Label("Welcome to Shamwow Billing and Payment System."
-                + "\nYou may make new order, look up or update cost information of materials, manufacturers, shippings, overheads and employees."
+        Label welcome_title = new Label("Welcome to Shamwow Billing and Payment System.");
+        Label welcomeMsg = new Label("\nYou may make new order, look up or update cost information of materials, manufacturers, shippings, \noverheads and employees."
                 + "\n\nClick on the buttons on the left to proceed.");
-
+        welcome_title.setPadding(new Insets(10, 0, 0, 0));
+        welcome_title.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        //welcome_title.setTextFill(Color.rgb(14, 87, 155));
+        
 		/* -----------------------------------------------------------------------------
 		 Main Page
 		 ----------------------------------------------------------------------------- */
@@ -69,12 +63,15 @@ public class GUI extends Application {
         // list of buttons in the main page
         Button order_button = new Button("Make New Order");
         order_button.setOnAction(e -> window.setScene(order));
+        order_button.setPrefWidth(150);
         
         Button data_button = new Button("Enter Data");
         data_button.setOnAction(e -> window.setScene(data));
+        data_button.setPrefWidth(150);
 
         Button exit_button = new Button("Exit");
         exit_button.setOnAction(e -> System.exit(0));
+        exit_button.setPrefWidth(150);
         
         Button report_button = new Button("Check overall costs");
         report_button.setOnAction(e -> {
@@ -85,16 +82,19 @@ public class GUI extends Application {
         	
         	CostSummaryBox.display("Cost Summary", shipping_costs, employee_costs, overhead_costs, total_cost);
         });
+        report_button.setPrefWidth(150);
         
     	
         
         VBox button_list = new VBox(10);
         button_list.setPrefWidth(200);
         button_list.getChildren().addAll(order_button, data_button, report_button, exit_button);
-        //button_list.setPadding(new Insets(10, 0, 0, 10));
-
+        button_list.setPadding(new Insets(30, 0, 0, 10));
+        
+        VBox main_content = new VBox();
+        main_content.getChildren().addAll(welcome_title, welcomeMsg);
         // make layout for main page
-        HBox main_layout = new HBox(50);
+        HBox main_layout = new HBox(45);
         // try {
            Image image = new Image("https://cdn.discordapp.com/attachments/551214454587654155/838517821742252143/6e8e5fc722a47865e3d299a7b8090d5b.w973.h765.jpg");
            BackgroundImage backgroundimage = new BackgroundImage(image, 
@@ -107,18 +107,18 @@ public class GUI extends Application {
             Background background = new Background(backgroundimage);
             // set background
             main_layout.setBackground(background);
-            main_layout.getChildren().addAll( button_list, welcomeMsg);
+            
+            main_layout.getChildren().addAll(button_list, main_content);
            
        // } catch (FileNotFoundException  ex) {
         	
         	// join buttons and welcomeMsg
-        //	main_layout.getChildren().addAll(button_list, welcomeMsg);
+            // main_layout.getChildren().addAll(button_list, welcomeMsg);
+            
        // }
         
-        //main_layout.setAlignment(Pos.TOP_CENTER);
         main = new Scene(main_layout, 800, 500);
 
-        
         /* -----------------------------------------------------------------------------
 		 Data Page
 		 ----------------------------------------------------------------------------- */
@@ -127,24 +127,30 @@ public class GUI extends Application {
         
         Button goBack_button = new Button("<< Go back");
         goBack_button.setOnAction(e -> window.setScene(main));
+        goBack_button.setPrefWidth(150);
         
         Button overhead_button = new Button("Overhead");
         overhead_button.setOnAction(e -> window.setScene(overhead));
+        overhead_button.setPrefWidth(150);
 
         Button employee_button = new Button("Employee");
         employee_button.setOnAction(e -> window.setScene(employee));
+        employee_button.setPrefWidth(150);
 
         Button shipping_button = new Button("Shipping");
         shipping_button.setOnAction(e -> window.setScene(shipping));
+        shipping_button.setPrefWidth(150);
         
         Button exit_button1 = new Button("Exit");
         exit_button1.setOnAction(e -> System.exit(0));
+        exit_button1.setPrefWidth(150);
         
         VBox data_buttonlist = new VBox(10);
         data_buttonlist.setPrefWidth(200);
         data_buttonlist.getChildren().addAll(goBack_button, overhead_button, employee_button, shipping_button, exit_button1);
         
         HBox data_layout = new HBox(50);
+        data_layout.setPadding(new Insets(10, 0, 0, 10));
         data_layout.getChildren().addAll(data_buttonlist, dataPageMsg);
         data = new Scene(data_layout, 800, 500);
         
@@ -181,6 +187,7 @@ public class GUI extends Application {
         order_steps.getChildren().addAll(order_step1, units, order_step2, shipping_company, submit_order, order_label);
         
         order_layout.getChildren().addAll(goBack_button1, order_steps);
+        order_layout.setPadding(new Insets(10, 0, 0, 10));
         order = new Scene(order_layout, 800, 500);
         
         /*Button goBack_button1 = new Button("<< Go back");
