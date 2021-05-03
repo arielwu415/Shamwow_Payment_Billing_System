@@ -422,6 +422,7 @@ public class GUI extends Application {
 
 
         overhead_layout.getChildren().addAll(goBack_button2, newManuf_texts, updateManuf_texts);
+        overhead_layout.setPadding(new Insets(10, 0, 0, 10));
         overhead = new Scene(overhead_layout, 800, 500);
 
 
@@ -548,6 +549,7 @@ public class GUI extends Application {
 
 
         employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2);
+        employee_layout.setPadding(new Insets(10, 0, 0, 10));
         employee = new Scene(employee_layout, 800, 500);
 
 
@@ -675,6 +677,7 @@ public class GUI extends Application {
 
         HBox hboxShipping = new HBox(10);
         hboxShipping.getChildren().addAll(goBack_button4, vBoxShip, vBoxShip1);
+        hboxShipping.setPadding(new Insets(10, 0, 0, 10));
 
         shipping = new Scene(hboxShipping, 800, 500);
         
