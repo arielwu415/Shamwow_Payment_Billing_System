@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TextField;
 import java.io.FileInputStream; 
@@ -27,8 +26,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.*;
 import javafx.scene.web.*;
 import javafx.scene.layout.*;
@@ -44,8 +41,11 @@ public class GUI extends Application {
 
     Stage window;
     Scene main, order, data, overhead, employee, shipping;
-    private int employee_column, manuf_column, order_column, ship_column; // For check functions
+    private int employee_column, manuf_column, ship_column; // For check functions
 
+    String order_number;
+  	int employee_costs, shipping_costs, overhead_costs, total_cost;
+  	
     public static void main(String[] args)
     {
         launch(args);
@@ -73,27 +73,29 @@ public class GUI extends Application {
         Button data_button = new Button("Enter Data");
         data_button.setOnAction(e -> window.setScene(data));
 
-        Button overhead_button = new Button("Overhead");
-        overhead_button.setOnAction(e -> window.setScene(overhead));
-
-        Button employee_button = new Button("Employee");
-        employee_button.setOnAction(e -> window.setScene(employee));
-
-        Button shipping_button = new Button("Shipping");
-        shipping_button.setOnAction(e -> window.setScene(shipping));
-        
         Button exit_button = new Button("Exit");
         exit_button.setOnAction(e -> System.exit(0));
-
-
+        
+        Button report_button = new Button("Check overall costs");
+        report_button.setOnAction(e -> {
+        	shipping_costs = general.shippingCosts();
+        	employee_costs = general.laborCost();
+        	overhead_costs = general.overheadCost();
+        	total_cost = general.totalCost();
+        	
+        	CostSummaryBox.display("Cost Summary", shipping_costs, employee_costs, overhead_costs, total_cost);
+        });
+        
+    	
+        
         VBox button_list = new VBox(10);
         button_list.setPrefWidth(200);
-        button_list.getChildren().addAll(order_button, data_button, exit_button);
+        button_list.getChildren().addAll(order_button, data_button, report_button, exit_button);
         //button_list.setPadding(new Insets(10, 0, 0, 10));
 
         // make layout for main page
         HBox main_layout = new HBox(50);
-       // try {
+        // try {
            Image image = new Image("https://cdn.discordapp.com/attachments/551214454587654155/838517821742252143/6e8e5fc722a47865e3d299a7b8090d5b.w973.h765.jpg");
            BackgroundImage backgroundimage = new BackgroundImage(image, 
                                              BackgroundRepeat.NO_REPEAT, 
@@ -126,6 +128,15 @@ public class GUI extends Application {
         Button goBack_button = new Button("<< Go back");
         goBack_button.setOnAction(e -> window.setScene(main));
         
+        Button overhead_button = new Button("Overhead");
+        overhead_button.setOnAction(e -> window.setScene(overhead));
+
+        Button employee_button = new Button("Employee");
+        employee_button.setOnAction(e -> window.setScene(employee));
+
+        Button shipping_button = new Button("Shipping");
+        shipping_button.setOnAction(e -> window.setScene(shipping));
+        
         Button exit_button1 = new Button("Exit");
         exit_button1.setOnAction(e -> System.exit(0));
         
@@ -145,28 +156,29 @@ public class GUI extends Application {
         
         HBox order_layout = new HBox(20);
         
+        String units_input, shipping_ID;
+        
         Label order_step1 = new Label("Enter Number of Units Wanted:");
         TextField units =  new TextField();
+        units_input = units.getText();
         
         Label order_step2 = new Label("Choose Shipping Company:");
         TextField shipping_company =  new TextField();
-        shipping_company.setPromptText("Enter company ID");
-        
-        Label order_step3 = new Label("Choose Manufacturer:");
-        TextField manufacturer =  new TextField();
-        manufacturer.setPromptText("Enter manufacturer ID");
-        
-        Label order_step4 = new Label("Add Employee Details:");
-        TextField employee_details =  new TextField();
-        employee_details.setPromptText("Enter employee ID");
-        
+        shipping_company.setPromptText("Enter shipping company ID");
+        shipping_ID = shipping_company.getText();
+                
+        Label order_label = new Label("");
         
         Button submit_order = new Button("Submit");
-        
+        submit_order.setOnAction(e -> { 
+        	order_number = Order.generateOrderNumber();
+        	Order.newOrder(order_number, units_input, shipping_ID);
+        	order_label.setText("Order created. Your order number is " + order_number);
+        });
         
         VBox order_steps = new VBox(10);
         order_steps.setPrefWidth(360);
-        order_steps.getChildren().addAll(order_step1, units, order_step2, shipping_company, order_step3, manufacturer, order_step4, employee_details, submit_order);
+        order_steps.getChildren().addAll(order_step1, units, order_step2, shipping_company, submit_order, order_label);
         
         order_layout.getChildren().addAll(goBack_button1, order_steps);
         order = new Scene(order_layout, 800, 500);
@@ -402,7 +414,7 @@ public class GUI extends Application {
         checkManuf_texts.getChildren().addAll(checkManuf_title, text_manufacturer3, text_manufColumn, check_manufacturer, overhead_label3);
 
 
-        overhead_layout.getChildren().addAll(goBack_button2, newManuf_texts, updateManuf_texts, checkManuf_texts);
+        overhead_layout.getChildren().addAll(goBack_button2, newManuf_texts, updateManuf_texts);
         overhead = new Scene(overhead_layout, 800, 500);
 
 
@@ -528,7 +540,7 @@ public class GUI extends Application {
         text_fields3.getChildren().addAll(checkEmpl_title, text_ID3, text_column, check_employee, employee_label3);
 
 
-        employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2, text_fields3);
+        employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2);
         employee = new Scene(employee_layout, 800, 500);
 
 
@@ -655,7 +667,7 @@ public class GUI extends Application {
 
 
         HBox hboxShipping = new HBox(10);
-        hboxShipping.getChildren().addAll(goBack_button4, vBoxShip, vBoxShip1, vboxShipCheck);
+        hboxShipping.getChildren().addAll(goBack_button4, vBoxShip, vBoxShip1);
 
         shipping = new Scene(hboxShipping, 800, 500);
         
