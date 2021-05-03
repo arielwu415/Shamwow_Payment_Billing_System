@@ -2,7 +2,7 @@
 //peer programmed by Daniel Yoon and David Kim
 import java.util.*;
 
-import org.graalvm.compiler.nodes.calc.IntegerConvertNode;
+//import org.graalvm.compiler.nodes.calc.IntegerConvertNode;
 
 import java.io.*;
 public class Order extends Shipping
@@ -128,5 +128,21 @@ public class Order extends Shipping
         }
         String[] inputArray = {id, orderAmount, Integer.toString(oldOrderAmount*2)};
         editRecord("inventory.csv", inputArray);
+    }
+    
+    public static String generateOrderNumber() {
+    	String orderNum;
+    	int leftlimit = 48;
+    	int rightlimit = 57;
+    	int str_length = 7;
+    	
+    	Random random = new Random();
+    	
+    	orderNum = random.ints(leftlimit, rightlimit + 1)
+    			.limit(str_length)
+    			.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+    		    .toString();
+    	
+    	return orderNum;
     }
 }
