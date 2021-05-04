@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.*;
+
 //peer programmed by Daniel Yoon and David Kim
 public class DataAccess {
     public static void main(String[] args) { //CAN DELETE: TEST UTILITY 
@@ -11,7 +12,7 @@ public class DataAccess {
         //String newValue = "1324";
         //String[] input1 = {"1234","noj","21","ASU"};
         //editRecord(filepath, input1);
-        System.out.println(sumColumn(filepath, 3, 5));
+        System.out.println(Arrays.toString(returnColumn("employees.csv", 0, 5)));
         
     }
     private static Scanner x;
@@ -158,7 +159,7 @@ public class DataAccess {
         return sum;
     }
 
-    public static int sumColumn(String filepath, int columnNum, int fields) //sums total of any given column; filepath = file to open;
+    public static int sumColumn(String filepath, int columnNum, int fields) //sums total of any given column;
     {                                                                       //filepath = file to open, columnNum = which column to sum, fields = # of fields
         String[] storeData = new String[fields]; 
         int sum = 0; 
@@ -182,5 +183,37 @@ public class DataAccess {
         }
         x.close();
         return sum;
+    }
+
+    public static String[] returnColumn(String filepath, int columnNum, int fields) // returns all values in a given column
+    {                                                                               // filepath = file to open, columnNum = which column to return, fields = # of fields
+        List<String> storeData = new ArrayList<String>(); 
+        try {
+            x = new Scanner(new File(filepath));
+            x.useDelimiter("[,\n]");
+            while(x.hasNext())
+            {
+                for(int i = 0; i < fields; i++)
+                {
+                    if(i == columnNum)
+                    { 
+                        storeData.add(x.next().strip());
+                    }
+                    else
+                    {
+                        x.next();
+                    }
+                }
+                
+            }
+        } 
+        catch (Exception e) {
+        }
+        x.close();
+        String[] returnArray = new String[storeData.size()];
+        returnArray = storeData.toArray(returnArray);
+        for (String y : returnArray)
+            System.out.print(y + " ");
+        return returnArray;
     }
 }
