@@ -162,24 +162,28 @@ public class GUI extends Application {
         
         HBox order_layout = new HBox(20);
         
-        String units_input, shipping_ID;
-        
         Label order_step1 = new Label("Enter Number of Units Wanted:");
         TextField units =  new TextField();
-        units_input = units.getText();
         
         Label order_step2 = new Label("Choose Shipping Company:");
         TextField shipping_company =  new TextField();
         shipping_company.setPromptText("Enter shipping company ID");
-        shipping_ID = shipping_company.getText();
-                
-        Label order_label = new Label("");
         
+        
+        Label order_label = new Label("");
         Button submit_order = new Button("Submit");
+        
         submit_order.setOnAction(e -> { 
+        	String units_input, shipping_ID;
         	order_number = Order.generateOrderNumber();
+        	units_input = units.getText();
+        	shipping_ID = shipping_company.getText();
         	Order.newOrder(order_number, units_input, shipping_ID);
         	order_label.setText("Order created. Your order number is " + order_number);
+        	
+        	// clear text in fields
+        	units.clear();
+        	shipping_company.clear();
         });
         
         VBox order_steps = new VBox(10);
@@ -306,36 +310,40 @@ public class GUI extends Application {
         HBox overhead_layout = new HBox(20);
 
         // New Overhead
-        String manufacturer1, rent1, utilities1, insurance1, machinery1;
         Label newOverhead_title = new Label("Add Manufacturer to the Database");
 
         TextField text_manufacturer1 = new TextField();
         text_manufacturer1.setPromptText("Manufacturer");
         text_manufacturer1.setPrefColumnCount(10);
-        manufacturer1 = text_manufacturer1.getText();
-
+        
         TextField text_rent1 = new TextField();
         text_rent1.setPromptText("Rent");
-        rent1 = text_rent1.getText();
-
+        
         TextField text_utilities1 = new TextField();
         text_utilities1.setPromptText("Utilities");
-        utilities1 = text_utilities1.getText();
-
+        
         TextField text_insurance1 = new TextField();
         text_insurance1.setPromptText("Insurance");
-        insurance1 = text_insurance1.getText();
-
+        
         TextField text_machinery1 = new TextField();
         text_machinery1.setPromptText("Machinery");
-        machinery1 = text_machinery1.getText();
+        
 
         Label overhead_label1 = new Label("");
         Button submit_manufacturer = new Button("Submit");
+        
         submit_manufacturer.setOnAction(e -> {
+        	String manufacturer1, rent1, utilities1, insurance1, machinery1;
+        	manufacturer1 = text_manufacturer1.getText();
+        	rent1 = text_rent1.getText();
+        	utilities1 = text_utilities1.getText();
+        	insurance1 = text_insurance1.getText();
+        	machinery1 = text_machinery1.getText();
+        	
             Overhead.newManufacturer(manufacturer1, rent1, utilities1, insurance1, machinery1);
             overhead_label1.setText("Manufacturer data has been added");
             System.out.println("Manufacturer data has been added");
+            
             text_manufacturer1.clear();
             text_rent1.clear();
             text_utilities1.clear();
@@ -349,37 +357,40 @@ public class GUI extends Application {
 
 
         // Update Manufacturer
-        String manufacturer2, rent2, utilities2, insurance2, machinery2;
         Label updateOverhead_title = new Label("Update Existing Manufacturer");
 
         TextField text_manufacturer2 = new TextField();
         text_manufacturer2.setPromptText("Manufacturer");
         text_manufacturer2.setPrefColumnCount(10);
-        manufacturer2 = text_manufacturer2.getText();
-
+        
         TextField text_rent2 = new TextField();
         text_rent2.setPromptText("Rent");
-        rent2 = text_rent2.getText();
-
+        
         TextField text_utilities2 = new TextField();
         text_utilities2.setPromptText("Utilities");
-        utilities2 = text_utilities2.getText();
-
+        
         TextField text_insurance2 = new TextField();
         text_insurance2.setPromptText("Insurance");
-        insurance2 = text_insurance2.getText();
-
+        
         TextField text_machinery2 = new TextField();
         text_machinery2.setPromptText("Machinery");
-        machinery2 = text_machinery2.getText();
-
+        
 
         Label overhead_label2 = new Label("");
         Button update_manufacturer = new Button("Submit");
+        
         update_manufacturer.setOnAction(e -> {
-            Overhead.newManufacturer(manufacturer2, rent2, utilities2, insurance2, machinery2);
+        	String manufacturer2, rent2, utilities2, insurance2, machinery2;
+        	manufacturer2 = text_manufacturer2.getText();
+        	rent2 = text_rent2.getText();
+        	utilities2 = text_utilities2.getText();
+        	insurance2 = text_insurance2.getText();
+        	machinery2 = text_machinery2.getText();
+            
+        	Overhead.newManufacturer(manufacturer2, rent2, utilities2, insurance2, machinery2);
             overhead_label2.setText("Manufacturer data has been updated");
             System.out.println("Manufacturer data has been updated");
+            
             text_manufacturer2.clear();
             text_rent2.clear();
             text_utilities2.clear();
@@ -392,7 +403,7 @@ public class GUI extends Application {
         updateManuf_texts.getChildren().addAll(updateOverhead_title, text_manufacturer2, text_rent2, text_utilities2, text_insurance2, text_machinery2, update_manufacturer, overhead_label2);
 
 
-        // Check Manufacturer
+        // Check Manufacturer (no need)
         String manufacturer3;
         Label checkManuf_title = new Label("Check Manufacturer");
 
@@ -436,36 +447,39 @@ public class GUI extends Application {
         HBox employee_layout = new HBox(20);
 
         // New Employee
-        String id1, fname1, lname1, pay1, position1;
         Label newEmpl_title = new Label("Add Employee to the Database");
 
         TextField text_ID1 = new TextField();
         text_ID1.setPromptText("Employee ID");
         text_ID1.setPrefColumnCount(10);
-        id1 = text_ID1.getText();
-
+        
         TextField text_fname1 = new TextField();
         text_fname1.setPromptText("First name");
-        fname1 = text_fname1.getText();
-
+        
         TextField text_lname1 = new TextField();
         text_lname1.setPromptText("Last name");
-        lname1 = text_lname1.getText();
-
+        
         TextField text_pay1 = new TextField();
         text_pay1.setPromptText("Paycheck");
-        pay1 = text_pay1.getText();
-
+        
         TextField text_position1 = new TextField();
         text_position1.setPromptText("Position");
-        position1 = text_position1.getText();
+        
 
         Label employee_label1 = new Label("");
         Button submit_employee = new Button("Submit");
         submit_employee.setOnAction(e -> {
-            Employees.newEmployee(id1, fname1, lname1, pay1, position1);
+        	String id1, fname1, lname1, pay1, position1;
+        	id1 = text_ID1.getText();
+        	fname1 = text_fname1.getText();
+        	lname1 = text_lname1.getText();
+        	pay1 = text_pay1.getText();
+        	position1 = text_position1.getText();
+            
+        	Employees.newEmployee(id1, fname1, lname1, pay1, position1);
             employee_label1.setText("Employee data has been added");
             System.out.println("Employee data has been added");
+            
             text_ID1.clear();
             text_fname1.clear();
             text_lname1.clear();
@@ -479,36 +493,40 @@ public class GUI extends Application {
         text_fields1.getChildren().addAll(newEmpl_title, text_ID1, text_fname1, text_lname1, text_pay1, text_position1, submit_employee, employee_label1);
 
         // Update Employee
-        String id2, fname2, lname2, pay2, position2;
         Label updateEmpl_title = new Label("Update Employee Info");
 
         TextField text_ID2 = new TextField();
         text_ID2.setPromptText("Enter existing employee ID");
         text_ID2.setPrefColumnCount(10);
-        id2 = text_ID2.getText();
-
+        
         TextField text_fname2 = new TextField();
         text_fname2.setPromptText("First name");
-        fname2 = text_fname2.getText();
-
+        
         TextField text_lname2 = new TextField();
         text_lname2.setPromptText("Last name");
-        lname2 = text_lname2.getText();
-
+        
         TextField text_pay2 = new TextField();
         text_pay2.setPromptText("Paycheck");
-        pay2 = text_pay2.getText();
-
+        
         TextField text_position2 = new TextField();
         text_position2.setPromptText("Position");
-        position2 = text_position2.getText();
+        
 
         Label employee_label2 = new Label("");
         Button update_employee = new Button("Update");
+        
         update_employee.setOnAction(e -> {
-            Employees.updateEmployee(id2, fname2, lname2, pay2, position2);
+        	String id2, fname2, lname2, pay2, position2;
+        	id2 = text_ID2.getText();
+        	fname2 = text_fname2.getText();
+        	lname2 = text_lname2.getText();
+        	pay2 = text_pay2.getText();
+        	position2 = text_position2.getText();
+            
+        	Employees.updateEmployee(id2, fname2, lname2, pay2, position2);
             employee_label2.setText("Employee info has been updated");
             System.out.println("Employee info has been updated");
+            
             text_ID2.clear();
             text_fname2.clear();
             text_lname2.clear();
@@ -520,7 +538,7 @@ public class GUI extends Application {
         text_fields2.setPrefWidth(200);
         text_fields2.getChildren().addAll(updateEmpl_title, text_ID2, text_fname2, text_lname2, text_pay2, text_position2, update_employee, employee_label2);
 
-        // check Employee
+        // check Employee (no need)
         String id3;
         Label checkEmpl_title = new Label("Check Employee");
 
@@ -560,37 +578,40 @@ public class GUI extends Application {
         goBack_button4.setOnAction(e -> window.setScene(data));
         
         // New Shipping
-        String shipID, shipName, shipAddress, shipPhone, shipCost;
         Label shipping_title = new Label("New Shipping Information");
 
         TextField text_ShipID = new TextField();
         text_ShipID.setPromptText("Shipping ID");
         text_ShipID.setPrefColumnCount(10);
-        shipID = text_ShipID.getText();
 
         TextField text_shipName = new TextField();
         text_shipName.setPromptText("Full Name");
-        shipName = text_shipName.getText();
-
+        
         TextField text_shipAddy = new TextField();
         text_shipAddy.setPromptText("Address");
-        shipAddress = text_shipAddy.getText();
-
+        
         TextField text_shipPhone = new TextField();
         text_shipPhone.setPromptText("Phone Number");
-        shipPhone = text_shipPhone.getText();
-
+        
         TextField text_shipCost = new TextField();
         text_shipCost.setPromptText("Cost");
-        shipCost = text_shipCost.getText();
-        
+                
         
         Label shipping_label1 = new Label("");
         Button complete_shipDetails = new Button("Complete");
+        
         complete_shipDetails.setOnAction(e -> {
+        	String shipID, shipName, shipAddress, shipPhone, shipCost;
+        	shipID = text_ShipID.getText();
+        	shipName = text_shipName.getText();
+        	shipAddress = text_shipAddy.getText();
+        	shipPhone = text_shipPhone.getText();
+        	shipCost = text_shipCost.getText();
+        	
             Shipping.newShipping(shipID, shipName, shipAddress, shipPhone, shipCost);
             shipping_label1.setText("Shipping data has been added");
             System.out.println("Shipping data has been added");
+            
             text_ShipID.clear();
             text_shipAddy.clear();
             text_shipPhone.clear();
@@ -603,37 +624,40 @@ public class GUI extends Application {
 
         
         // Update Shipping
-        String shipID1, shipName1, shipAddress1, shipPhone1, shipCost1;
         Label shipping_title1 = new Label("Update Shipping Information");
 
         TextField text_ShipID1 = new TextField();
         text_ShipID1.setPromptText("Shipping ID");
         text_ShipID1.setPrefColumnCount(10);
-        shipID1 = text_ShipID1.getText();
-
+        
         TextField text_shipName1 = new TextField();
         text_shipName1.setPromptText("Full Name");
-        shipName1 = text_shipName1.getText();
-
+        
         TextField text_shipAddy1 = new TextField();
         text_shipAddy1.setPromptText("Address");
-        shipAddress1 = text_shipAddy1.getText();
-
+        
         TextField text_shipPhone1 = new TextField();
         text_shipPhone1.setPromptText("Phone Number");
-        shipPhone1 = text_shipPhone1.getText();
-
+        
         TextField text_shipCost1 = new TextField();
         text_shipCost1.setPromptText("Cost");
-        shipCost1 = text_shipCost1.getText();
-
+        
         
         Label shipping_label2 = new Label("");
         Button update_shipDetails1 = new Button("Update");
+        
         update_shipDetails1.setOnAction(e -> {
+        	String shipID1, shipName1, shipAddress1, shipPhone1, shipCost1;
+        	shipID1 = text_ShipID1.getText();
+        	shipName1 = text_shipName1.getText();
+        	shipAddress1 = text_shipAddy1.getText();
+        	shipPhone1 = text_shipPhone1.getText();
+        	shipCost1 = text_shipCost1.getText();
+        	
             Shipping.updateShipping(shipID1, shipName1, shipAddress1, shipPhone1, shipCost1);
             shipping_label2.setText("Shipping data has been updated");
             System.out.println("Shipping data has been updated");
+            
             text_ShipID1.clear();
             text_shipName1.clear();
             text_shipAddy1.clear();
@@ -646,7 +670,7 @@ public class GUI extends Application {
         vBoxShip1.getChildren().addAll(shipping_title1, text_ShipID1, text_shipName1, text_shipAddy1, text_shipPhone1, text_shipCost1, update_shipDetails1, shipping_label2);
 
         
-        // Check Shipping
+        // Check Shipping (no need)
         String shipID3;
         Label checkShip_title = new Label("Check Shipping Information");
 
