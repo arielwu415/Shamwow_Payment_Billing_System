@@ -1,4 +1,4 @@
-package application;
+package sample;
  
 import java.lang.Integer;
 import java.lang.NumberFormatException;
@@ -33,7 +33,7 @@ public class GUI extends Application {
     Stage window;
     Scene main, order, data, overhead, employee, shipping;
     private int employee_column, manuf_column, ship_column; // For check functions
-
+    ComboBox<String> shipCompany;
     String order_number;
   	int employee_costs, shipping_costs, overhead_costs, total_cost;
   	
@@ -166,8 +166,12 @@ public class GUI extends Application {
         TextField units =  new TextField();
         
         Label order_step2 = new Label("Choose Shipping Company:");
-        TextField shipping_company =  new TextField();
-        shipping_company.setPromptText("Enter shipping company ID");
+        shipCompany = new ComboBox<>();
+        shipCompany.setEditable(true);
+        String[] ids = DataAccess.returnColumn("D:\\shipping.csv", 1, 5);
+        shipCompany.getItems().addAll(ids);
+        //TextField shipping_company =  new TextField();
+        //shipping_company.setPromptText("Enter shipping company ID");
         
         
         Label order_label = new Label("");
@@ -177,18 +181,18 @@ public class GUI extends Application {
         	String units_input, shipping_ID;
         	order_number = Order.generateOrderNumber();
         	units_input = units.getText();
-        	shipping_ID = shipping_company.getText();
+        	shipping_ID = shipCompany.getValue();
         	Order.newOrder(order_number, units_input, shipping_ID);
         	order_label.setText("Order created. Your order number is " + order_number);
         	
         	// clear text in fields
         	units.clear();
-        	shipping_company.clear();
+            shipCompany.setValue(null);
         });
         
         VBox order_steps = new VBox(10);
         order_steps.setPrefWidth(360);
-        order_steps.getChildren().addAll(order_step1, units, order_step2, shipping_company, submit_order, order_label);
+        order_steps.getChildren().addAll(order_step1, units, order_step2, shipCompany, submit_order, order_label);
         
         order_layout.getChildren().addAll(goBack_button1, order_steps);
         order_layout.setPadding(new Insets(10, 0, 0, 10));
