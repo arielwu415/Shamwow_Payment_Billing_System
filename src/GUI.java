@@ -630,11 +630,12 @@ public class GUI extends Application {
         
         Label shipping_label2 = new Label("");
         Button update_shipDetails1 = new Button("Update");
-        complete_shipDetails.setOnAction(e -> {
+        update_shipDetails1.setOnAction(e -> {
             Shipping.updateShipping(shipID1, shipName1, shipAddress1, shipPhone1, shipCost1);
             shipping_label2.setText("Shipping data has been updated");
             System.out.println("Shipping data has been updated");
             text_ShipID1.clear();
+            text_shipName1.clear();
             text_shipAddy1.clear();
             text_shipPhone1.clear();
             text_shipCost1.clear();
