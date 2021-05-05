@@ -13,7 +13,7 @@ public class DataAccess {
         //String[] input1 = {"1234","noj","21","ASU"};
         //editRecord(filepath, input1);
         //System.out.println(Arrays.toString(returnColumn("employees.csv", 0, 5)));
-        deleteRecord("employees.csv", "3223", 5);
+        //deleteRecord("employees.csv", "3223", 5);
     }
     private static Scanner x;
 
