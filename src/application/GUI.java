@@ -645,7 +645,7 @@ public class Row {
         root.getChildren().add(test);
         
 
-        readCSV();
+        //readCSV();
         show = new Scene(root, 900, 600);
 
 		/* -----------------------------------------------------------------------------

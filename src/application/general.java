@@ -9,11 +9,11 @@ public class general extends DataAccess{
         System.out.println(shippingCosts());
     }
     public static int shippingCosts(){
-        String filepath = "C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\order.csv";
+        String filepath = "order.csv";
         return sumColumn(filepath, 3, 4);
     }
     public static int rawMaterialsCost(){
-        File filepath = new File("C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\materialCost.csv");
+        File filepath = new File("materialCost.csv");
         try{
             Scanner scn = new Scanner(filepath);
             scn.nextLine();
@@ -26,11 +26,11 @@ public class general extends DataAccess{
         }
     }
     public static int laborCost(){
-        String filepath = "C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\employees.csv";
+        String filepath = "employees.csv";
         return sumColumn(filepath, 3, 5);
     }
     public static int overheadCost(){
-        String filepath = "C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\manufacturer.csv";
+        String filepath = "manufacturer.csv";
         int rent = sumColumn(filepath, 1, 5);
         int utilities = sumColumn(filepath, 2, 5);
         int insurance = sumColumn(filepath, 3, 5);
@@ -38,7 +38,7 @@ public class general extends DataAccess{
         return rent + utilities + insurance + machinery;
     }
     public static int manufacturerCost(String manufacturerName){
-        String filepath = "C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\manufacturer.csv";
+        String filepath = "manufacturer.csv";
         return sumRow(filepath, manufacturerName, 5);
     }
     public static int totalCost(){
