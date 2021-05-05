@@ -12,8 +12,8 @@ public class DataAccess {
         //String newValue = "1324";
         //String[] input1 = {"1234","noj","21","ASU"};
         //editRecord(filepath, input1);
-        System.out.println(Arrays.toString(returnColumn("employees.csv", 0, 5)));
-        
+        //System.out.println(Arrays.toString(returnColumn("employees.csv", 0, 5)));
+        deleteRecord("employees.csv", "3223", 5);
     }
     private static Scanner x;
 
@@ -38,8 +38,6 @@ public class DataAccess {
             pw.println("");
             pw.flush();
             pw.close();
-
-            System.out.println("Saved");
 
         }
         catch(Exception E)
@@ -215,5 +213,96 @@ public class DataAccess {
         for (String y : returnArray)
             System.out.print(y + " ");
         return returnArray;
+    }
+
+    public static void deleteRecord(String filepath, String idToFind, int fields) //replaces row corresponding to id given in newValues[0] with corresponding values in newValues[i]
+    {                                                                  //-1 is taken to be remain the same
+        String tempFile = "temp.txt";                                  //filepath = file to open, newValues[] = array containing new values or -1
+        File oldFile = new File(filepath);
+        File newFile = new File(tempFile);
+        String[] storeData = new String[fields]; 
+        try
+        {
+            FileWriter fw = new FileWriter(tempFile, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            Scanner y = new Scanner(new File(filepath));
+            y.useDelimiter("[,\n]");
+
+            while(y.hasNext())
+            {
+        
+                for(int i = 0; i < storeData.length; i++)
+                {
+                    storeData[i] = y.next();
+                }
+
+                if(!storeData[0].equals(idToFind))
+                {
+                    pw.print(storeData[0]);
+                    for(int i = 1; i < storeData.length; i ++)
+                    {
+                        pw.print("," + storeData[i]);
+                    }
+                }
+            }
+            y.close();
+            pw.flush();
+            pw.close();
+            boolean bool = oldFile.delete();
+            System.out.println("File deleted:" + bool);
+            File dump = new File(filepath);
+            newFile.renameTo(dump);
+            cleanse(filepath, fields);
+        }
+        catch(Exception e)
+        {
+            System.out.println("File not found");
+        }
+    }
+
+    public static void cleanse(String filepath, int fields)
+    {
+        String tempFile = "temp.txt";                                  
+        File oldFile = new File(filepath);
+        File newFile = new File(tempFile);
+        String storeData = ""; 
+        boolean first = true; 
+        try
+        {
+            FileWriter fw = new FileWriter(tempFile, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            Scanner y = new Scanner(new File(filepath));
+            y.useDelimiter("\n");
+
+            while(y.hasNextLine())
+            {
+                storeData = y.nextLine();
+                if(!storeData.equals(""))
+                {
+                    if(first)
+                    {
+                        first = false;
+                    }
+                    else
+                    {
+                        pw.print("\n");
+                    }
+                    pw.print(storeData);
+                }
+            }
+            y.close();
+            pw.flush();
+            pw.close();
+            boolean bool = oldFile.delete();
+            System.out.println("File deleted:" + bool);
+            File dump = new File(filepath);
+            newFile.renameTo(dump); 
+        }
+        catch(Exception e)
+        {
+            System.out.println("File not found");
+        }
     }
 }
