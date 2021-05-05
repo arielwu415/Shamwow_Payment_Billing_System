@@ -1,4 +1,4 @@
-package sample;
+package application;
  
 import java.lang.Integer;
 import java.lang.NumberFormatException;
@@ -48,30 +48,34 @@ public class GUI extends Application {
         window = primaryStage;
         window.setTitle("Shamwow - Billing and Payment System");
 
-        Label welcome_title = new Label("Welcome to Shamwow Billing and Payment System.");
+        Label welcome_title = new Label("Welcome to Shamwow Billing and Payment System!");
         Label welcomeMsg = new Label("\nYou may make new order, look up or update cost information of materials, manufacturers, shippings, \noverheads and employees."
                 + "\n\nClick on the buttons on the left to proceed.");
-        welcome_title.setPadding(new Insets(10, 0, 0, 0));
-        welcome_title.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        welcome_title.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 25));
         //welcome_title.setTextFill(Color.rgb(14, 87, 155));
+        
         
 		/* -----------------------------------------------------------------------------
 		 Main Page
 		 ----------------------------------------------------------------------------- */
-		
-    
         // list of buttons in the main page
         Button order_button = new Button("Make New Order");
         order_button.setOnAction(e -> window.setScene(order));
         order_button.setPrefWidth(150);
+        order_button.setPrefHeight(40);
+        order_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         
         Button data_button = new Button("Enter Data");
         data_button.setOnAction(e -> window.setScene(data));
         data_button.setPrefWidth(150);
+        data_button.setPrefHeight(40);
+        data_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
 
         Button exit_button = new Button("Exit");
         exit_button.setOnAction(e -> System.exit(0));
         exit_button.setPrefWidth(150);
+        exit_button.setPrefHeight(40);
+        exit_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         
         Button report_button = new Button("Check overall costs");
         report_button.setOnAction(e -> {
@@ -83,6 +87,8 @@ public class GUI extends Application {
         	CostSummaryBox.display("Cost Summary", shipping_costs, employee_costs, overhead_costs, total_cost);
         });
         report_button.setPrefWidth(150);
+        report_button.setPrefHeight(40);
+        report_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         
     	
         
@@ -93,6 +99,7 @@ public class GUI extends Application {
         
         VBox main_content = new VBox();
         main_content.getChildren().addAll(welcome_title, welcomeMsg);
+        main_content.setPadding(new Insets(30, 0, 0, 0));
         // make layout for main page
         HBox main_layout = new HBox(45);
         // try {
@@ -117,7 +124,7 @@ public class GUI extends Application {
             
        // }
         
-        main = new Scene(main_layout, 800, 500);
+        main = new Scene(main_layout, 900, 600);
 
         /* -----------------------------------------------------------------------------
 		 Data Page
@@ -152,7 +159,7 @@ public class GUI extends Application {
         HBox data_layout = new HBox(50);
         data_layout.setPadding(new Insets(10, 0, 0, 10));
         data_layout.getChildren().addAll(data_buttonlist, dataPageMsg);
-        data = new Scene(data_layout, 800, 500);
+        data = new Scene(data_layout, 900, 600);
         
 		/* -----------------------------------------------------------------------------
 		 Order Page
@@ -168,7 +175,7 @@ public class GUI extends Application {
         Label order_step2 = new Label("Choose Shipping Company:");
         shipCompany = new ComboBox<>();
         shipCompany.setEditable(true);
-        String[] ids = DataAccess.returnColumn("D:\\shipping.csv", 1, 5);
+        String[] ids = DataAccess.returnColumn("shipping.csv", 1, 5);
         shipCompany.getItems().addAll(ids);
         //TextField shipping_company =  new TextField();
         //shipping_company.setPromptText("Enter shipping company ID");
@@ -196,7 +203,7 @@ public class GUI extends Application {
         
         order_layout.getChildren().addAll(goBack_button1, order_steps);
         order_layout.setPadding(new Insets(10, 0, 0, 10));
-        order = new Scene(order_layout, 800, 500);
+        order = new Scene(order_layout, 900, 600);
         
         /*Button goBack_button1 = new Button("<< Go back");
         goBack_button1.setOnAction(e -> window.setScene(main));
@@ -302,7 +309,7 @@ public class GUI extends Application {
 
 
         order_layout.getChildren().addAll(goBack_button1, newOrder_texts, updateOrder_texts, checkOrder_texts);
-        order = new Scene(order_layout, 800, 500);*/
+        order = new Scene(order_layout, 900, 600);*/
 
 
 		/* -----------------------------------------------------------------------------
@@ -438,7 +445,7 @@ public class GUI extends Application {
 
         overhead_layout.getChildren().addAll(goBack_button2, newManuf_texts, updateManuf_texts);
         overhead_layout.setPadding(new Insets(10, 0, 0, 10));
-        overhead = new Scene(overhead_layout, 800, 500);
+        overhead = new Scene(overhead_layout, 900, 600);
 
 
 		/* -----------------------------------------------------------------------------
@@ -572,7 +579,7 @@ public class GUI extends Application {
 
         employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2);
         employee_layout.setPadding(new Insets(10, 0, 0, 10));
-        employee = new Scene(employee_layout, 800, 500);
+        employee = new Scene(employee_layout, 900, 600);
 
 
 		/* -----------------------------------------------------------------------------
@@ -708,7 +715,7 @@ public class GUI extends Application {
         hboxShipping.getChildren().addAll(goBack_button4, vBoxShip, vBoxShip1);
         hboxShipping.setPadding(new Insets(10, 0, 0, 10));
 
-        shipping = new Scene(hboxShipping, 800, 500);
+        shipping = new Scene(hboxShipping, 900, 600);
         
         window.setScene(main);
         window.show();
