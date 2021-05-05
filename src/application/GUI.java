@@ -87,7 +87,7 @@ public class Row {
 
     }
     Stage window;
-    Scene main, order, data, overhead, employee, shipping, show, search;
+    Scene main, newOrder, order, data, overhead, employee, shipping, show, search;
     private int employee_column, manuf_column, ship_column, order_column; // For check functions
     ComboBox<String> shipCompany;
     RadioButton yes, no;
@@ -156,7 +156,7 @@ public class Row {
 		 ----------------------------------------------------------------------------- */
         // list of buttons in the main page
         Button order_button = new Button("Make New Order");
-        order_button.setOnAction(e -> window.setScene(order));
+        order_button.setOnAction(e -> window.setScene(newOrder));
         order_button.setPrefWidth(150);
         order_button.setPrefHeight(40);
         order_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
@@ -443,7 +443,7 @@ public class Row {
 
         newOrder_layout.getChildren().addAll(goBack_button1, order_steps);
         newOrder_layout.setPadding(new Insets(10, 0, 0, 10));
-        order = new Scene(newOrder_layout, 900, 600); 
+        newOrder = new Scene(newOrder_layout, 900, 600); 
 
         
         /* -----------------------------------------------------------------------------
@@ -544,7 +544,7 @@ public class Row {
         deleteOrder_texts.setPrefWidth(200);
         deleteOrder_texts.getChildren().addAll(deleteOrder_title, orderId, order_label2, deleteOrder_button);
         
-        order_layout.getChildren().addAll(goBack_button1, updateOrder_texts, deleteOrder_texts);
+        order_layout.getChildren().addAll(goBack_button6, updateOrder_texts, deleteOrder_texts);
         order_layout.setPadding(new Insets(10, 0, 0, 10));
         order = new Scene(order_layout, 900, 600);
         
@@ -593,11 +593,11 @@ public class Row {
         });
 
 
-        Label history_Label = new Label("Order History:");
-        history_Label.setFont(new Font("Calibre", 45));
+        Label history_Label = new Label("Order History");
+        history_Label.setFont(Font.font("Calibre", FontWeight.BOLD, FontPosture.REGULAR, 40));
 
         Group root = new Group();
-
+/*
         TableColumn columnF1 = new TableColumn("Order ID");
         columnF1.setMinWidth(75);
         columnF1.setCellValueFactory(
@@ -645,13 +645,15 @@ public class Row {
 
         tableView.setItems(dataList);
         tableView.getColumns().addAll(
-                columnF1, columnF2, columnF3, columnF4, columnF5, columnF6, columnF7, columnF8, columnF9);
+                columnF1, columnF2, columnF3, columnF4, columnF5, columnF6, columnF7, columnF8, columnF9);*/
 
         VBox test = new VBox(10);
         test.setSpacing(10);
-        test.getChildren().addAll(goBack_button5,history_Label,tableView);
-
+        test.getChildren().addAll(goBack_button5, history_Label, tableView);
+        test.setPadding(new Insets(10, 0, 0, 10));
+        
         root.getChildren().add(test);
+        
 
         readCSV();
         show = new Scene(root, 900, 600);
