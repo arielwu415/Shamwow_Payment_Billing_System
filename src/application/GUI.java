@@ -30,7 +30,58 @@ import javafx.scene.text.*;
 
 
 public class GUI extends Application {
+public class Row {
+        //Assume each Row have 6 elements, all String
 
+        private SimpleStringProperty f1, f2, f3, f4, f5, f6, f7, f8, f9;
+
+        public String getF1() {
+            return f1.get();
+        }
+
+        public String getF2() {
+            return f2.get();
+        }
+
+        public String getF3() {
+            return f3.get();
+        }
+
+        public String getF4() {
+            return f4.get();
+        }
+
+        public String getF5() {
+            return f5.get();
+        }
+
+        public String getF6() {
+            return f6.get();
+        }
+        public String getF7() {
+            return f7.get();
+        }
+        public String getF8() {
+            return f8.get();
+        }
+        public String getF9() {
+            return f9.get();
+        }
+
+        Row(String f1, String f2, String f3, String f4,
+               String f5, String f6, String f7, String f8, String f9) {
+            this.f1 = new SimpleStringProperty(f1);
+            this.f2 = new SimpleStringProperty(f2);
+            this.f3 = new SimpleStringProperty(f3);
+            this.f4 = new SimpleStringProperty(f4);
+            this.f5 = new SimpleStringProperty(f5);
+            this.f6 = new SimpleStringProperty(f6);
+            this.f7 = new SimpleStringProperty(f7);
+            this.f8 = new SimpleStringProperty(f8);
+            this.f9 = new SimpleStringProperty(f9);
+        }
+
+    }
     Stage window;
     Scene main, order, data, overhead, employee, shipping, show, search;
     private int employee_column, manuf_column, ship_column, order_column; // For check functions
@@ -39,6 +90,45 @@ public class GUI extends Application {
     String order_number;
     int employee_costs, shipping_costs, overhead_costs, total_cost;
     DropShadow shadow = new DropShadow();
+	
+    private final TableView<Row> tableView = new TableView<>();
+
+    private final ObservableList<Row> dataList
+            = FXCollections.observableArrayList();
+
+
+
+    private void readCSV() {
+
+        String CsvFile = "D:\\order.csv";
+        String FieldDelimiter = ",";
+
+        BufferedReader br;
+
+        try {
+            br = new BufferedReader(new FileReader(CsvFile));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(FieldDelimiter, -1);
+
+                Row Row = new Row(fields[0], fields[1], fields[2],
+                        fields[3], fields[4], fields[5], fields[6], fields[7], fields[8]);
+                dataList.add(Row);
+
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GUI.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+	
     public static void main(String[] args)
     {
         launch(args);
@@ -483,35 +573,85 @@ public class GUI extends Application {
 		/* -----------------------------------------------------------------------------
 		 Show Order History Page
 		 ----------------------------------------------------------------------------- */
+
         Button goBack_button5 = new Button("<< Go back");
         goBack_button5.setOnAction(e -> window.setScene(main));
         goBack_button5.setPrefWidth(150);
         goBack_button5.setPrefHeight(30);
         goBack_button5.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         goBack_button5.setOnMouseEntered(e -> {
-        	goBack_button5.setEffect(shadow);
-        	goBack_button5.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+            goBack_button5.setEffect(shadow);
+            goBack_button5.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         goBack_button5.setOnMouseExited(e -> {
-        	goBack_button5.setEffect(null);
-        	goBack_button5.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+            goBack_button5.setEffect(null);
+            goBack_button5.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
-        
-
-        VBox history_layout = new VBox(20);
-
-        Label history = new Label("Order History:");
-        
-        
 
 
+        Label history_Label = new Label("Order History:");
+        history_Label.setFont(new Font("Calibre", 45));
 
+        Group root = new Group();
 
-        history_layout.getChildren().add(goBack_button5);
-        history_layout.setPadding(new Insets(10, 0, 0, 10));
-        show = new Scene(history_layout, 900, 600);
+        TableColumn columnF1 = new TableColumn("Order ID");
+        columnF1.setMinWidth(75);
+        columnF1.setCellValueFactory(
+                new PropertyValueFactory<>("f1"));
 
-        
+        TableColumn columnF2 = new TableColumn("Units");
+        columnF2.setMinWidth(50);
+        columnF2.setCellValueFactory(
+                new PropertyValueFactory<>("f2"));
+
+        TableColumn columnF3 = new TableColumn("Shipping Company ID");
+        columnF3.setMinWidth(175);
+        columnF3.setCellValueFactory(
+                new PropertyValueFactory<>("f3"));
+
+        TableColumn columnF4 = new TableColumn("Shipping Cost");
+        columnF4.setMinWidth(100);
+        columnF4.setCellValueFactory(
+                new PropertyValueFactory<>("f4"));
+
+        TableColumn columnF5 = new TableColumn("Material Cost");
+        columnF5.setMinWidth(100);
+        columnF5.setCellValueFactory(
+                new PropertyValueFactory<>("f5"));
+
+        TableColumn columnF6 = new TableColumn("Overhead Cost");
+        columnF6.setMinWidth(100);
+        columnF6.setCellValueFactory(
+                new PropertyValueFactory<>("f7"));
+
+        TableColumn columnF7 = new TableColumn("Labor Cost");
+        columnF7.setMinWidth(100);
+        columnF7.setCellValueFactory(
+                new PropertyValueFactory<>("f7"));
+
+        TableColumn columnF8 = new TableColumn("Total Cost");
+        columnF8.setMinWidth(80);
+        columnF8.setCellValueFactory(
+                new PropertyValueFactory<>("f8"));
+
+        TableColumn columnF9 = new TableColumn("Paid?");
+        columnF9.setMinWidth(75);
+        columnF9.setCellValueFactory(
+                new PropertyValueFactory<>("f9"));
+
+        tableView.setItems(dataList);
+        tableView.getColumns().addAll(
+                columnF1, columnF2, columnF3, columnF4, columnF5, columnF6, columnF7, columnF8, columnF9);
+
+        VBox test = new VBox(10);
+        test.setSpacing(10);
+        test.getChildren().addAll(goBack_button5,history_Label,tableView);
+
+        root.getChildren().add(test);
+
+        readCSV();
+        show = new Scene(root, 900, 600);
+
 		/* -----------------------------------------------------------------------------
 		 Overhead Page
 		 ----------------------------------------------------------------------------- */
