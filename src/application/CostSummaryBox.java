@@ -22,9 +22,9 @@ public class CostSummaryBox {
 		
 		Label Total_Costs = new Label("Total Cost: $" + total_cost);
 		Total_Costs.setFont(Font.font("Arial", FontPosture.REGULAR, 20));
-		Label Employee_Costs = new Label("\tShipping Costs: $" + employee_costs);
-		Label Overhead_Costs = new Label("\tOverhead Costs: $" + overhead_costs);
-		Label Shipping_Costs = new Label("\tShipping Costs: $" + shipping_costs);
+		Label Employee_Costs = new Label("Shipping Costs: $" + employee_costs);
+		Label Overhead_Costs = new Label("Overhead Costs: $" + overhead_costs);
+		Label Shipping_Costs = new Label("Shipping Costs: $" + shipping_costs);
 		Button exit_button = new Button("Exit");
         exit_button.setOnAction(e ->  window.close());
         exit_button.setPrefWidth(120);
