@@ -104,7 +104,7 @@ public class Row {
 
     private void readCSV() {
 
-        String CsvFile = "D:\\order.csv";
+        String CsvFile = "order.csv";
         String FieldDelimiter = ",";
 
         BufferedReader br;
@@ -305,56 +305,56 @@ public class Row {
         shipping_button.setOnAction(e -> window.setScene(shipping));
         shipping_button.setPrefWidth(150);
         shipping_button.setPrefHeight(30);
-        shipping_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        shipping_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         shipping_button.setOnMouseEntered(e -> {
         	shipping_button.setEffect(shadow);
         	shipping_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         shipping_button.setOnMouseExited(e -> {
         	shipping_button.setEffect(null);
-        	shipping_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        	shipping_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
 
         Button overhead_button = new Button("Overhead");
         overhead_button.setOnAction(e -> window.setScene(overhead));
         overhead_button.setPrefWidth(150);
         overhead_button.setPrefHeight(30);
-        overhead_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        overhead_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         overhead_button.setOnMouseEntered(e -> {
         	overhead_button.setEffect(shadow);
         	overhead_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         overhead_button.setOnMouseExited(e -> {
         	overhead_button.setEffect(null);
-        	overhead_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        	overhead_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
 
         Button employee_button = new Button("Employee");
         employee_button.setOnAction(e -> window.setScene(employee));
         employee_button.setPrefWidth(150);
         employee_button.setPrefHeight(30);
-        employee_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        employee_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         employee_button.setOnMouseEntered(e -> {
         	employee_button.setEffect(shadow);
         	employee_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         employee_button.setOnMouseExited(e -> {
         	employee_button.setEffect(null);
-        	employee_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        	employee_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         
         Button order_button1 = new Button("Order");
         order_button1.setOnAction(e -> window.setScene(order));
         order_button1.setPrefWidth(150);
         order_button1.setPrefHeight(30);
-        order_button1.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        order_button1.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         order_button1.setOnMouseEntered(e -> {
         	order_button1.setEffect(shadow);
         	order_button1.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         order_button1.setOnMouseExited(e -> {
         	order_button1.setEffect(null);
-        	order_button1.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        	order_button1.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
 
 
@@ -560,7 +560,6 @@ public class Row {
         try {
             order_column = Integer.parseInt(text_orderColumn.getText());
         } catch (NumberFormatException ex) { }
-
         Label order_label3 = new Label("");
         Button check_order = new Button("Check");
         check_order.setOnAction(e -> {
@@ -602,47 +601,38 @@ public class Row {
         columnF1.setMinWidth(75);
         columnF1.setCellValueFactory(
                 new PropertyValueFactory<>("f1"));
-
         TableColumn columnF2 = new TableColumn("Units");
         columnF2.setMinWidth(50);
         columnF2.setCellValueFactory(
                 new PropertyValueFactory<>("f2"));
-
         TableColumn columnF3 = new TableColumn("Shipping Company ID");
         columnF3.setMinWidth(175);
         columnF3.setCellValueFactory(
                 new PropertyValueFactory<>("f3"));
-
         TableColumn columnF4 = new TableColumn("Shipping Cost");
         columnF4.setMinWidth(100);
         columnF4.setCellValueFactory(
                 new PropertyValueFactory<>("f4"));
-
         TableColumn columnF5 = new TableColumn("Material Cost");
         columnF5.setMinWidth(100);
         columnF5.setCellValueFactory(
                 new PropertyValueFactory<>("f5"));
-
         TableColumn columnF6 = new TableColumn("Overhead Cost");
         columnF6.setMinWidth(100);
         columnF6.setCellValueFactory(
                 new PropertyValueFactory<>("f7"));
-
         TableColumn columnF7 = new TableColumn("Labor Cost");
         columnF7.setMinWidth(100);
         columnF7.setCellValueFactory(
                 new PropertyValueFactory<>("f7"));
-
         TableColumn columnF8 = new TableColumn("Total Cost");
         columnF8.setMinWidth(80);
         columnF8.setCellValueFactory(
                 new PropertyValueFactory<>("f8"));
-
         TableColumn columnF9 = new TableColumn("Paid?");
         columnF9.setMinWidth(75);
         columnF9.setCellValueFactory(
                 new PropertyValueFactory<>("f9"));
-
         tableView.setItems(dataList);
         tableView.getColumns().addAll(
                 columnF1, columnF2, columnF3, columnF4, columnF5, columnF6, columnF7, columnF8, columnF9);*/
