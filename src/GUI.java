@@ -194,42 +194,42 @@ public class GUI extends Application {
         overhead_button.setOnAction(e -> window.setScene(overhead));
         overhead_button.setPrefWidth(150);
         overhead_button.setPrefHeight(30);
-        overhead_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        overhead_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         overhead_button.setOnMouseEntered(e -> {
         	overhead_button.setEffect(shadow);
         	overhead_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         overhead_button.setOnMouseExited(e -> {
         	overhead_button.setEffect(null);
-        	overhead_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        	overhead_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
 
         Button employee_button = new Button("Employee");
         employee_button.setOnAction(e -> window.setScene(employee));
         employee_button.setPrefWidth(150);
         employee_button.setPrefHeight(30);
-        employee_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        employee_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         employee_button.setOnMouseEntered(e -> {
         	employee_button.setEffect(shadow);
         	employee_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         employee_button.setOnMouseExited(e -> {
         	employee_button.setEffect(null);
-        	employee_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        	employee_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
 
         Button shipping_button = new Button("Shipping");
         shipping_button.setOnAction(e -> window.setScene(shipping));
         shipping_button.setPrefWidth(150);
         shipping_button.setPrefHeight(30);
-        shipping_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        shipping_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         shipping_button.setOnMouseEntered(e -> {
         	shipping_button.setEffect(shadow);
         	shipping_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
         shipping_button.setOnMouseExited(e -> {
         	shipping_button.setEffect(null);
-        	shipping_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        	shipping_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
 
         Button exit_button1 = new Button("Exit");
@@ -354,7 +354,6 @@ public class GUI extends Application {
         TextField text_shippingID2 = new TextField();
         text_shippingID2.setPromptText("Shipping company ID");
         shippingID2 = text_shippingID2.getText();
-
         Label order_label2 = new Label("");
         Button update_order = new Button("Update");
         update_order.setOnAction(e -> {
@@ -379,7 +378,6 @@ public class GUI extends Application {
         try {
             order_column = Integer.parseInt(text_orderColumn.getText());
         } catch (NumberFormatException ex) { }
-
         Label order_label3 = new Label("");
         Button check_order = new Button("Check");
         check_order.setOnAction(e -> {
