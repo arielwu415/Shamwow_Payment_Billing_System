@@ -1,5 +1,5 @@
 package application;
-
+// Peer Coded By Alson Kharel, Ariel Wu, Kelsey Coen
 import java.lang.Integer;
 import java.lang.NumberFormatException;
 import java.io.*;
@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.geometry.*;
+import javafx.scene.effect.DropShadow;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,12 +32,13 @@ import javafx.scene.text.*;
 public class GUI extends Application {
 
     Stage window;
-    Scene main, order, data, overhead, employee, shipping;
-    private int employee_column, manuf_column, ship_column; // For check functions
+    Scene main, order, data, overhead, employee, shipping, show, search;
+    private int employee_column, manuf_column, ship_column, order_column; // For check functions
     ComboBox<String> shipCompany;
+    RadioButton yes, no;
     String order_number;
     int employee_costs, shipping_costs, overhead_costs, total_cost;
-
+    DropShadow shadow = new DropShadow();
     public static void main(String[] args)
     {
         launch(args);
@@ -63,21 +65,45 @@ public class GUI extends Application {
         order_button.setOnAction(e -> window.setScene(order));
         order_button.setPrefWidth(150);
         order_button.setPrefHeight(40);
-        order_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        order_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        order_button.setOnMouseEntered(e -> {
+            order_button.setEffect(shadow);
+            order_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        order_button.setOnMouseExited(e -> {
+           order_button.setEffect(null);
+           order_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button data_button = new Button("Enter Data");
         data_button.setOnAction(e -> window.setScene(data));
         data_button.setPrefWidth(150);
         data_button.setPrefHeight(40);
-        data_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        data_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        data_button.setOnMouseEntered(e -> {
+            data_button.setEffect(shadow);
+            data_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        data_button.setOnMouseExited(e -> {
+            data_button.setEffect(null);
+            data_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button exit_button = new Button("Exit");
         exit_button.setOnAction(e -> System.exit(0));
         exit_button.setPrefWidth(150);
         exit_button.setPrefHeight(40);
-        exit_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        exit_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        exit_button.setOnMouseEntered(e -> {
+            exit_button.setEffect(shadow);
+            exit_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        exit_button.setOnMouseExited(e -> {
+            exit_button.setEffect(null);
+            exit_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
-        Button report_button = new Button("Check overall costs");
+        Button report_button = new Button("Check Overall Costs");
         report_button.setOnAction(e -> {
             shipping_costs = general.shippingCosts();
             employee_costs = general.laborCost();
@@ -88,13 +114,48 @@ public class GUI extends Application {
         });
         report_button.setPrefWidth(150);
         report_button.setPrefHeight(40);
-        report_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        report_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        report_button.setOnMouseEntered(e -> {
+            report_button.setEffect(shadow);
+            report_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        report_button.setOnMouseExited(e -> {
+            report_button.setEffect(null);
+            report_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
+        Button show_button = new Button("Show Order History");
+        show_button.setOnAction(e -> window.setScene(show));
+        show_button.setPrefWidth(150);
+        show_button.setPrefHeight(40);
+        show_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        show_button.setOnMouseEntered(e -> {
+            show_button.setEffect(shadow);
+            show_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        show_button.setOnMouseExited(e -> {
+            show_button.setEffect(null);
+            show_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+
+        Button search_button = new Button("Search Orders");
+        search_button.setOnAction(e -> window.setScene(show));
+        search_button.setPrefWidth(150);
+        search_button.setPrefHeight(40);
+        search_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        search_button.setOnMouseEntered(e -> {
+            search_button.setEffect(shadow);
+            search_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        search_button.setOnMouseExited(e -> {
+            search_button.setEffect(null);
+            search_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
 
         VBox button_list = new VBox(10);
         button_list.setPrefWidth(200);
-        button_list.getChildren().addAll(order_button, data_button, report_button, exit_button);
+        button_list.getChildren().addAll(order_button, data_button, report_button, show_button, exit_button);
         button_list.setPadding(new Insets(30, 0, 0, 10));
 
         VBox main_content = new VBox();
@@ -135,26 +196,91 @@ public class GUI extends Application {
         Button goBack_button = new Button("<< Go back");
         goBack_button.setOnAction(e -> window.setScene(main));
         goBack_button.setPrefWidth(150);
+        goBack_button.setPrefHeight(30);
+        goBack_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button.setOnMouseEntered(e -> {
+        	goBack_button.setEffect(shadow);
+        	goBack_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button.setOnMouseExited(e -> {
+        	goBack_button.setEffect(null);
+        	goBack_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
+        Button shipping_button = new Button("Shipping");
+        shipping_button.setOnAction(e -> window.setScene(shipping));
+        shipping_button.setPrefWidth(150);
+        shipping_button.setPrefHeight(30);
+        shipping_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        shipping_button.setOnMouseEntered(e -> {
+        	shipping_button.setEffect(shadow);
+        	shipping_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        shipping_button.setOnMouseExited(e -> {
+        	shipping_button.setEffect(null);
+        	shipping_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button overhead_button = new Button("Overhead");
         overhead_button.setOnAction(e -> window.setScene(overhead));
         overhead_button.setPrefWidth(150);
+        overhead_button.setPrefHeight(30);
+        overhead_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        overhead_button.setOnMouseEntered(e -> {
+        	overhead_button.setEffect(shadow);
+        	overhead_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        overhead_button.setOnMouseExited(e -> {
+        	overhead_button.setEffect(null);
+        	overhead_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button employee_button = new Button("Employee");
         employee_button.setOnAction(e -> window.setScene(employee));
         employee_button.setPrefWidth(150);
+        employee_button.setPrefHeight(30);
+        employee_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        employee_button.setOnMouseEntered(e -> {
+        	employee_button.setEffect(shadow);
+        	employee_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        employee_button.setOnMouseExited(e -> {
+        	employee_button.setEffect(null);
+        	employee_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
+        Button order_button1 = new Button("Order");
+        order_button1.setOnAction(e -> window.setScene(order));
+        order_button1.setPrefWidth(150);
+        order_button1.setPrefHeight(30);
+        order_button1.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        order_button1.setOnMouseEntered(e -> {
+        	order_button1.setEffect(shadow);
+        	order_button1.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        order_button1.setOnMouseExited(e -> {
+        	order_button1.setEffect(null);
+        	order_button1.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
-        Button shipping_button = new Button("Shipping");
-        shipping_button.setOnAction(e -> window.setScene(shipping));
-        shipping_button.setPrefWidth(150);
 
         Button exit_button1 = new Button("Exit");
         exit_button1.setOnAction(e -> System.exit(0));
         exit_button1.setPrefWidth(150);
+        exit_button1.setPrefHeight(30);
+        exit_button1.setStyle("-fx-background-color: #800000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        exit_button1.setOnMouseEntered(e -> {
+        	exit_button1.setEffect(shadow);
+        	exit_button1.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        exit_button1.setOnMouseExited(e -> {
+        	exit_button1.setEffect(null);
+        	exit_button1.setStyle("-fx-background-color: #800000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         VBox data_buttonlist = new VBox(10);
         data_buttonlist.setPrefWidth(200);
-        data_buttonlist.getChildren().addAll(goBack_button, overhead_button, employee_button, shipping_button, exit_button1);
+        data_buttonlist.getChildren().addAll(goBack_button,  shipping_button, overhead_button, employee_button, order_button1);
 
         HBox data_layout = new HBox(50);
         data_layout.setPadding(new Insets(10, 0, 0, 10));
@@ -162,26 +288,45 @@ public class GUI extends Application {
         data = new Scene(data_layout, 900, 600);
 
 		/* -----------------------------------------------------------------------------
-		 Order Page
+		 Make New Order Page
 		 ----------------------------------------------------------------------------- */
+        Label newOrder_label = new Label("");
         Button goBack_button1 = new Button("<< Go back");
-        goBack_button1.setOnAction(e -> window.setScene(main));
+        goBack_button1.setOnAction(e -> {
+        	window.setScene(main);
+        	newOrder_label.setText("");
+        });
+        goBack_button1.setPrefWidth(150);
+        goBack_button1.setPrefHeight(30);
+        goBack_button1.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button1.setOnMouseEntered(e -> {
+        	goBack_button1.setEffect(shadow);
+        	goBack_button1.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button1.setOnMouseExited(e -> {
+        	goBack_button1.setEffect(null);
+        	goBack_button1.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
-        HBox order_layout = new HBox(20);
+        HBox newOrder_layout = new HBox(20);
 
         Label order_step1 = new Label("Enter Number of Units Wanted:");
         TextField units =  new TextField();
 
         Label order_step2 = new Label("Choose Shipping Company:");
         shipCompany = new ComboBox<>();
-        shipCompany.setEditable(true);
-        String[] ids = DataAccess.returnColumn("C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\shipping.csv", 0, 5);
+        shipCompany.setEditable(false);
+        String[] ids = DataAccess.returnColumn("shipping.csv", 0, 5);
         shipCompany.getItems().addAll(ids);
-        //TextField shipping_company =  new TextField();
-        //shipping_company.setPromptText("Enter shipping company ID");
-
-
-        Label order_label = new Label("");
+        Label paidLabel = new Label("Paid?");
+        yes = new RadioButton("Yes");
+        no = new RadioButton("No");
+        ToggleGroup paid = new ToggleGroup();
+        yes.setToggleGroup(paid);
+        no.setToggleGroup(paid);
+        HBox toggleButtons = new HBox(20);
+        toggleButtons.getChildren().addAll(yes,no);
+        
         Button submit_order = new Button("Submit");
 
         submit_order.setOnAction(e -> {
@@ -189,9 +334,9 @@ public class GUI extends Application {
             order_number = Order.generateOrderNumber();
             units_input = units.getText();
             shipping_ID = shipCompany.getValue();
-            String payment = "yes";
-            Order.newOrder(order_number, units_input, shipping_ID, payment);
-            order_label.setText("Order created. Your order number is " + order_number);
+            String paidStatus = paid.getSelectedToggle().getUserData().toString();
+            Order.newOrder(order_number, units_input, shipping_ID, paidStatus);
+            newOrder_label.setText("Order created. Your order number is " + order_number);
 
             // clear text in fields
             units.clear();
@@ -200,30 +345,39 @@ public class GUI extends Application {
 
         VBox order_steps = new VBox(10);
         order_steps.setPrefWidth(360);
-        order_steps.getChildren().addAll(order_step1, units, order_step2, shipCompany, submit_order, order_label);
+        order_steps.getChildren().addAll(order_step1, units, order_step2, shipCompany, submit_order, newOrder_label, paidLabel, toggleButtons);
 
-        order_layout.getChildren().addAll(goBack_button1, order_steps);
-        order_layout.setPadding(new Insets(10, 0, 0, 10));
-        order = new Scene(order_layout, 900, 600);
+        newOrder_layout.getChildren().addAll(goBack_button1, order_steps);
+        newOrder_layout.setPadding(new Insets(10, 0, 0, 10));
+        order = new Scene(newOrder_layout, 900, 600); 
 
-        /*Button goBack_button1 = new Button("<< Go back");
-        goBack_button1.setOnAction(e -> window.setScene(main));
-        HBox order_layout = new HBox(20);
+        
+        /* -----------------------------------------------------------------------------
+		 Order Page
+		 ----------------------------------------------------------------------------- */
+        Label order_label1 = new Label("");
+        Label order_label2 = new Label("");
+        Button goBack_button6 = new Button("<< Go back");
+        goBack_button6.setOnAction(e -> window.setScene(data));
+        HBox order_layout = new HBox(30);
+        /*
         // New Order
         String orderID1, units1, shippingID1;
+        
         Label newOrder_title = new Label("Make a new order");
         TextField text_orderID1 = new TextField();
         text_orderID1.setPromptText("Order ID");
-        text_orderID1.setPrefColumnCount(10);
+        
         orderID1 = text_orderID1.getText();
-        //GridPane.setConstraints(text_orderID1,  0, 0);
         TextField text_units1 = new TextField();
         text_units1.setPromptText("# of units wanted");
         units1 = text_units1.getText();
+        
         TextField text_shippingID1 = new TextField();
         text_shippingID1.setPromptText("Shipping company ID");
         shippingID1 = text_shippingID1.getText();
-        Label order_label1 = new Label("");
+        
+        
         Button submit_order = new Button("Submit");
         submit_order.setOnAction(e -> {
             //Order.newOrder(orderID1, units1, shippingID1);
@@ -235,35 +389,73 @@ public class GUI extends Application {
         });
         VBox newOrder_texts = new VBox(10);
         newOrder_texts.setPrefWidth(200);
-        newOrder_texts.getChildren().addAll(newOrder_title, text_orderID1, text_units1, text_shippingID1, submit_order, order_label1);
+        newOrder_texts.getChildren().addAll(newOrder_title, text_orderID1, text_units1, text_shippingID1, submit_order, order_label1);*/
+        
         // Update Order
-        String orderID2, units2, shippingID2;
         Label updateOrder_title = new Label("Update order info");
+        
         TextField text_orderID2 = new TextField();
         text_orderID2.setPromptText("Enter existing order ID");
-        text_orderID2.setPrefColumnCount(10);
-        orderID2 = text_orderID2.getText();
+        
         TextField text_units2 = new TextField();
         text_units2.setPromptText("# of units wanted");
-        units2 = text_units2.getText();
+        
         TextField text_shippingID2 = new TextField();
         text_shippingID2.setPromptText("Shipping company ID");
-        shippingID2 = text_shippingID2.getText();
+        
+        TextField text_paid2 = new TextField();
+        text_paid2.setPromptText("Paid or not (Enter yes or no)");
+        
 
-        Label order_label2 = new Label("");
         Button update_order = new Button("Update");
         update_order.setOnAction(e -> {
-            //Order.updateOrder(orderID2, units2, shippingID2);
-        	order_label2.setText("Order data has been updated");
+        	String orderID2, units2, shippingID2, paid2;
+        	orderID2 = text_orderID2.getText();
+        	units2 = text_units2.getText();
+        	shippingID2 = text_shippingID2.getText();
+        	paid2 = text_paid2.getText();
+        	
+            Order.updateOrder(orderID2, units2, shippingID2, paid2);
+        	order_label1.setText("Order data has been updated");
             System.out.println("Order data has been updated");
+            
             text_orderID2.clear();
             text_units2.clear();
             text_shippingID2.clear();
+            text_paid2.clear();
         });
+        
         VBox updateOrder_texts = new VBox(10);
         updateOrder_texts.setPrefWidth(200);
         updateOrder_texts.getChildren().addAll(updateOrder_title, text_orderID2, text_units2, text_shippingID2, update_order, order_label2);
+        
+        
+        // Delete Order
+        Label deleteOrder_title = new Label("Choose order number to delete");
+        ComboBox<String> orderId = new ComboBox<>();
+        orderId.setEditable(false);
+        String[] order_ids = DataAccess.returnColumn("order.csv", 0, 4);
+        orderId.getItems().addAll(order_ids);
+        
+        Button deleteOrder_button = new Button("Delete");
+        
+        deleteOrder_button.setOnAction(e -> {
+        	 String order_ID;
+        	 order_ID = orderId.getValue();
+        	 Order.deleteOrder(order_ID);
+        	 order_label2.setText("Your order has been deleted");
+        });
+        
+        VBox deleteOrder_texts = new VBox(10);
+        deleteOrder_texts.setPrefWidth(200);
+        deleteOrder_texts.getChildren().addAll(deleteOrder_title, orderId, order_label2, deleteOrder_button);
+        
+        order_layout.getChildren().addAll(goBack_button1, updateOrder_texts, deleteOrder_texts);
+        order_layout.setPadding(new Insets(10, 0, 0, 10));
+        order = new Scene(order_layout, 900, 600);
+        
         // Check Order
+        /*
         String orderID3;
         Label checkOrder_title = new Label("Check Order");
         TextField text_orderID3 = new TextField();
@@ -286,15 +478,64 @@ public class GUI extends Application {
         VBox checkOrder_texts = new VBox(10);
         checkOrder_texts.setPrefWidth(200);
         checkOrder_texts.getChildren().addAll(checkOrder_title, text_orderID3, text_orderColumn, check_order, order_label3);
-        order_layout.getChildren().addAll(goBack_button1, newOrder_texts, updateOrder_texts, checkOrder_texts);
-        order = new Scene(order_layout, 900, 600);*/
+        */
+
+		/* -----------------------------------------------------------------------------
+		 Show Order History Page
+		 ----------------------------------------------------------------------------- */
+        Button goBack_button5 = new Button("<< Go back");
+        goBack_button5.setOnAction(e -> window.setScene(main));
+        goBack_button5.setPrefWidth(150);
+        goBack_button5.setPrefHeight(30);
+        goBack_button5.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button5.setOnMouseEntered(e -> {
+        	goBack_button5.setEffect(shadow);
+        	goBack_button5.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button5.setOnMouseExited(e -> {
+        	goBack_button5.setEffect(null);
+        	goBack_button5.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
+
+        VBox history_layout = new VBox(20);
+
+        Label history = new Label("Order History:");
+        
+        
 
 
+
+
+        history_layout.getChildren().add(goBack_button5);
+        history_layout.setPadding(new Insets(10, 0, 0, 10));
+        show = new Scene(history_layout, 900, 600);
+
+        
 		/* -----------------------------------------------------------------------------
 		 Overhead Page
 		 ----------------------------------------------------------------------------- */
+        Label overhead_label1 = new Label("");
+        Label overhead_label2 = new Label("");
+        Label overhead_label4 = new Label("");
         Button goBack_button2 = new Button("<< Go back");
-        goBack_button2.setOnAction(e -> window.setScene(data));
+        goBack_button2.setOnAction(e -> {
+        	window.setScene(data);
+        	overhead_label1.setText("");
+        	overhead_label2.setText("");
+        });
+        goBack_button2.setPrefWidth(150);
+        goBack_button2.setPrefHeight(30);
+        goBack_button2.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button2.setOnMouseEntered(e -> {
+        	goBack_button2.setEffect(shadow);
+        	goBack_button2.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button2.setOnMouseExited(e -> {
+        	goBack_button2.setEffect(null);
+        	goBack_button2.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
 
         HBox overhead_layout = new HBox(20);
 
@@ -318,7 +559,7 @@ public class GUI extends Application {
         text_machinery1.setPromptText("Machinery");
 
 
-        Label overhead_label1 = new Label("");
+        
         Button submit_manufacturer = new Button("Submit");
 
         submit_manufacturer.setOnAction(e -> {
@@ -365,7 +606,6 @@ public class GUI extends Application {
         text_machinery2.setPromptText("Machinery");
 
 
-        Label overhead_label2 = new Label("");
         Button update_manufacturer = new Button("Submit");
 
         update_manufacturer.setOnAction(e -> {
@@ -391,7 +631,27 @@ public class GUI extends Application {
         updateManuf_texts.setPrefWidth(200);
         updateManuf_texts.getChildren().addAll(updateOverhead_title, text_manufacturer2, text_rent2, text_utilities2, text_insurance2, text_machinery2, update_manufacturer, overhead_label2);
 
-
+        // Delete Manufacturer
+        Label deleteManuf_title = new Label("Choose manufacturer ID to delete");
+        ComboBox<String> manufId = new ComboBox<>();
+        manufId.setEditable(false);
+        String[] manuf_ids = DataAccess.returnColumn("manufacturer.csv", 0, 5);
+        manufId.getItems().addAll(manuf_ids);
+        
+        Button deleteManuf_button = new Button("Delete");
+        
+        deleteManuf_button.setOnAction(e -> {
+        	 String manuf_ID;
+        	 manuf_ID = manufId.getValue();
+        	 Overhead.deleteManufacturer(manuf_ID);
+        	 overhead_label4.setText("Manufacturer data has been deleted");
+        });
+        
+        
+        VBox deleteManuf_texts = new VBox(10);
+        deleteManuf_texts.setPrefWidth(200);
+        deleteManuf_texts.getChildren().addAll(deleteManuf_title, manufId, overhead_label4, deleteManuf_button);
+        
         // Check Manufacturer (no need)
         String manufacturer3;
         Label checkManuf_title = new Label("Check Manufacturer");
@@ -421,7 +681,7 @@ public class GUI extends Application {
         checkManuf_texts.getChildren().addAll(checkManuf_title, text_manufacturer3, text_manufColumn, check_manufacturer, overhead_label3);
 
 
-        overhead_layout.getChildren().addAll(goBack_button2, newManuf_texts, updateManuf_texts);
+        overhead_layout.getChildren().addAll(goBack_button2, newManuf_texts, updateManuf_texts, deleteManuf_texts);
         overhead_layout.setPadding(new Insets(10, 0, 0, 10));
         overhead = new Scene(overhead_layout, 900, 600);
 
@@ -429,8 +689,27 @@ public class GUI extends Application {
 		/* -----------------------------------------------------------------------------
 		 Employee Page
 		 ----------------------------------------------------------------------------- */
+        Label employee_label1 = new Label("");
+        Label employee_label2 = new Label("");
+        Label employee_label4 = new Label("");
         Button goBack_button3 = new Button("<< Go back");
-        goBack_button3.setOnAction(e -> window.setScene(data));
+        goBack_button3.setOnAction(e -> {
+        	window.setScene(data);
+        	employee_label1.setText("");
+        	employee_label2.setText("");
+        });
+        goBack_button3.setPrefWidth(150);
+        goBack_button3.setPrefHeight(30);
+        goBack_button3.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button3.setOnMouseEntered(e -> {
+        	goBack_button3.setEffect(shadow);
+        	goBack_button3.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button3.setOnMouseExited(e -> {
+        	goBack_button3.setEffect(null);
+        	goBack_button3.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
 
 
         HBox employee_layout = new HBox(20);
@@ -455,7 +734,7 @@ public class GUI extends Application {
         text_position1.setPromptText("Position");
 
 
-        Label employee_label1 = new Label("");
+        
         Button submit_employee = new Button("Submit");
         submit_employee.setOnAction(e -> {
             String id1, fname1, lname1, pay1, position1;
@@ -501,7 +780,6 @@ public class GUI extends Application {
         text_position2.setPromptText("Position");
 
 
-        Label employee_label2 = new Label("");
         Button update_employee = new Button("Update");
 
         update_employee.setOnAction(e -> {
@@ -527,6 +805,28 @@ public class GUI extends Application {
         text_fields2.setPrefWidth(200);
         text_fields2.getChildren().addAll(updateEmpl_title, text_ID2, text_fname2, text_lname2, text_pay2, text_position2, update_employee, employee_label2);
 
+        // Delete Employee
+        Label deleteEmployee_title = new Label("Choose employee ID to delete");
+        ComboBox<String> employeeId = new ComboBox<>();
+        employeeId.setEditable(false);
+        String[] employee_ids = DataAccess.returnColumn("employees.csv", 0, 5);
+        employeeId.getItems().addAll(employee_ids);
+        
+        Button deleteEmployee_button = new Button("Delete");
+        
+        deleteManuf_button.setOnAction(e -> {
+        	 String empl_ID;
+        	 empl_ID = manufId.getValue();
+        	 Employees.deleteEmployee(empl_ID);
+        	 employee_label4.setText("Employee data has been deleted");
+        });
+        
+        
+        VBox deleteEmployee_texts = new VBox(10);
+        deleteEmployee_texts.setPrefWidth(200);
+        deleteEmployee_texts.getChildren().addAll(deleteEmployee_title, employeeId, employee_label4, deleteEmployee_button);
+        
+        
         // check Employee (no need)
         String id3;
         Label checkEmpl_title = new Label("Check Employee");
@@ -555,7 +855,7 @@ public class GUI extends Application {
         text_fields3.getChildren().addAll(checkEmpl_title, text_ID3, text_column, check_employee, employee_label3);
 
 
-        employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2);
+        employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2, deleteEmployee_texts);
         employee_layout.setPadding(new Insets(10, 0, 0, 10));
         employee = new Scene(employee_layout, 900, 600);
 
@@ -563,8 +863,27 @@ public class GUI extends Application {
 		/* -----------------------------------------------------------------------------
 		 Shipping Page
 		 ----------------------------------------------------------------------------- */
+        Label shipping_label1 = new Label("");
+        Label shipping_label2 = new Label("");   
+        Label shipping_label4 = new Label("");
         Button goBack_button4 = new Button("<< Go back");
-        goBack_button4.setOnAction(e -> window.setScene(data));
+        goBack_button4.setOnAction(e -> {
+        	window.setScene(data);
+        	shipping_label1.setText("");
+        	shipping_label2.setText("");
+        });
+        goBack_button4.setPrefWidth(150);
+        goBack_button4.setPrefHeight(30);
+        goBack_button4.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button4.setOnMouseEntered(e -> {
+        	goBack_button4.setEffect(shadow);
+        	goBack_button4.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button4.setOnMouseExited(e -> {
+        	goBack_button4.setEffect(null);
+        	goBack_button4.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
 
         // New Shipping
         Label shipping_title = new Label("New Shipping Information");
@@ -586,7 +905,6 @@ public class GUI extends Application {
         text_shipCost.setPromptText("Cost");
 
 
-        Label shipping_label1 = new Label("");
         Button complete_shipDetails = new Button("Complete");
 
         complete_shipDetails.setOnAction(e -> {
@@ -602,6 +920,7 @@ public class GUI extends Application {
             System.out.println("Shipping data has been added");
 
             text_ShipID.clear();
+            text_shipName.clear();
             text_shipAddy.clear();
             text_shipPhone.clear();
             text_shipCost.clear();
@@ -632,7 +951,6 @@ public class GUI extends Application {
         text_shipCost1.setPromptText("Cost");
 
 
-        Label shipping_label2 = new Label("");
         Button update_shipDetails1 = new Button("Update");
 
         update_shipDetails1.setOnAction(e -> {
@@ -659,6 +977,27 @@ public class GUI extends Application {
         vBoxShip1.getChildren().addAll(shipping_title1, text_ShipID1, text_shipName1, text_shipAddy1, text_shipPhone1, text_shipCost1, update_shipDetails1, shipping_label2);
 
 
+        // Delete Shipping
+        Label deleteShipping_title = new Label("Choose shipping company ID to delete");
+        ComboBox<String> shippingId = new ComboBox<>();
+        shippingId.setEditable(false);
+        String[] shipping_ids = DataAccess.returnColumn("shipping.csv", 0, 5);
+        shippingId.getItems().addAll(shipping_ids);
+        
+        Button deleteShipping_button = new Button("Delete");
+        
+        deleteManuf_button.setOnAction(e -> {
+        	 String shipping_ID;
+        	 shipping_ID = manufId.getValue();
+        	 Employees.deleteEmployee(shipping_ID);
+        	 shipping_label4.setText("Employee data has been deleted");
+        });
+        
+        
+        VBox deleteShipping_texts = new VBox(10);
+        deleteShipping_texts.setPrefWidth(200);
+        deleteShipping_texts.getChildren().addAll(deleteShipping_title, shippingId, deleteShipping_button, shipping_label4);
+        
         // Check Shipping (no need)
         String shipID3;
         Label checkShip_title = new Label("Check Shipping Information");
@@ -690,7 +1029,7 @@ public class GUI extends Application {
 
 
         HBox hboxShipping = new HBox(10);
-        hboxShipping.getChildren().addAll(goBack_button4, vBoxShip, vBoxShip1);
+        hboxShipping.getChildren().addAll(goBack_button4, vBoxShip, vBoxShip1, deleteShipping_texts);
         hboxShipping.setPadding(new Insets(10, 0, 0, 10));
 
         shipping = new Scene(hboxShipping, 900, 600);
