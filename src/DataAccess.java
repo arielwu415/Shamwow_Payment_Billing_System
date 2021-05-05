@@ -13,7 +13,11 @@ public class DataAccess {
         //String[] input1 = {"1234","noj","21","ASU"};
         //editRecord(filepath, input1);
         //System.out.println(Arrays.toString(returnColumn("employees.csv", 0, 5)));
-        //deleteRecord("employees.csv", "3223", 5);
+        String[] testing = returnRow("order.csv", "a1", 4);
+        for(int i = 0; i < testing.length; i++)
+        {
+            System.out.println(testing[i]);
+        }
     }
     private static Scanner x;
 
@@ -215,9 +219,40 @@ public class DataAccess {
         return returnArray;
     }
 
+    public static String[] returnRow(String filepath, String idSearch, int fields) //Searches through line by line to find id, then returns specified id 
+    {                                                 //filepath = file to open, idSearch = id to match to, columnNumber = which column to return, fields = number of fields
+        String[] storeData = new String[fields]; 
+        try {
+            x = new Scanner(new File(filepath));
+            x.useDelimiter("[,\n]");
+            while(x.hasNext())
+            {
+        
+                for(int i = 0; i < storeData.length; i++)
+                {
+                    storeData[i] = x.next();
+                }
+
+                if(storeData[0].equals(idSearch))
+                {
+                    x.close();
+                    return storeData;
+                }
+                else
+                {
+                    x.close();
+            }
+        } 
+        }catch (Exception e) {
+            return storeData;
+
+        }
+        return storeData;
+    }
+
     public static void deleteRecord(String filepath, String idToFind, int fields) //replaces row corresponding to id given in newValues[0] with corresponding values in newValues[i]
-    {                                                                  //-1 is taken to be remain the same
-        String tempFile = "temp.txt";                                  //filepath = file to open, newValues[] = array containing new values or -1
+    {                                                                             //-1 is taken to be remain the same
+        String tempFile = "temp.txt";                                             //filepath = file to open, newValues[] = array containing new values or -1
         File oldFile = new File(filepath);
         File newFile = new File(tempFile);
         String[] storeData = new String[fields]; 
@@ -305,4 +340,5 @@ public class DataAccess {
             System.out.println("File not found");
         }
     }
+    
 }
