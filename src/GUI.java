@@ -1,5 +1,5 @@
-package application;
- 
+package sample;
+
 import java.lang.Integer;
 import java.lang.NumberFormatException;
 import java.io.*;
@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.geometry.*;
+import javafx.scene.effect.DropShadow;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,13 +17,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.control.*;
-import javafx.scene.Group; 
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.canvas.*;
 import javafx.scene.web.*;
 import javafx.scene.image.*;
-import javafx.scene.Group;  
+import javafx.scene.Group;
 import javafx.scene.text.*;
 
 
@@ -31,12 +32,12 @@ import javafx.scene.text.*;
 public class GUI extends Application {
 
     Stage window;
-    Scene main, order, data, overhead, employee, shipping;
+    Scene main, order, data, overhead, employee, shipping, show;
     private int employee_column, manuf_column, ship_column; // For check functions
     ComboBox<String> shipCompany;
     String order_number;
-  	int employee_costs, shipping_costs, overhead_costs, total_cost;
-  	
+    int employee_costs, shipping_costs, overhead_costs, total_cost;
+    DropShadow shadow = new DropShadow();
     public static void main(String[] args)
     {
         launch(args);
@@ -53,8 +54,8 @@ public class GUI extends Application {
                 + "\n\nClick on the buttons on the left to proceed.");
         welcome_title.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 25));
         //welcome_title.setTextFill(Color.rgb(14, 87, 155));
-        
-        
+
+
 		/* -----------------------------------------------------------------------------
 		 Main Page
 		 ----------------------------------------------------------------------------- */
@@ -63,67 +64,111 @@ public class GUI extends Application {
         order_button.setOnAction(e -> window.setScene(order));
         order_button.setPrefWidth(150);
         order_button.setPrefHeight(40);
-        order_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
-        
+        order_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        order_button.setOnMouseEntered(e -> {
+            order_button.setEffect(shadow);
+            order_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        order_button.setOnMouseExited(e -> {
+           order_button.setEffect(null);
+           order_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+
         Button data_button = new Button("Enter Data");
         data_button.setOnAction(e -> window.setScene(data));
         data_button.setPrefWidth(150);
         data_button.setPrefHeight(40);
-        data_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        data_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        data_button.setOnMouseEntered(e -> {
+            data_button.setEffect(shadow);
+            data_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        data_button.setOnMouseExited(e -> {
+            data_button.setEffect(null);
+            data_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button exit_button = new Button("Exit");
         exit_button.setOnAction(e -> System.exit(0));
         exit_button.setPrefWidth(150);
         exit_button.setPrefHeight(40);
-        exit_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
-        
+        exit_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        exit_button.setOnMouseEntered(e -> {
+            exit_button.setEffect(shadow);
+            exit_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        exit_button.setOnMouseExited(e -> {
+            exit_button.setEffect(null);
+            exit_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+
         Button report_button = new Button("Check overall costs");
         report_button.setOnAction(e -> {
-        	shipping_costs = general.shippingCosts();
-        	employee_costs = general.laborCost();
-        	overhead_costs = general.overheadCost();
-        	total_cost = general.totalCost();
-        	
-        	CostSummaryBox.display("Cost Summary", shipping_costs, employee_costs, overhead_costs, total_cost);
+            shipping_costs = general.shippingCosts();
+            employee_costs = general.laborCost();
+            overhead_costs = general.overheadCost();
+            total_cost = general.totalCost();
+
+            CostSummaryBox.display("Cost Summary", shipping_costs, employee_costs, overhead_costs, total_cost);
         });
         report_button.setPrefWidth(150);
         report_button.setPrefHeight(40);
-        report_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
-        
-    	
-        
+        report_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        report_button.setOnMouseEntered(e -> {
+            report_button.setEffect(shadow);
+            report_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        report_button.setOnMouseExited(e -> {
+            report_button.setEffect(null);
+            report_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+
+        Button show_button = new Button("Show order history");
+        show_button.setOnAction(e -> window.setScene(show));
+        show_button.setPrefWidth(150);
+        show_button.setPrefHeight(40);
+        show_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        show_button.setOnMouseEntered(e -> {
+            show_button.setEffect(shadow);
+            show_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        show_button.setOnMouseExited(e -> {
+            show_button.setEffect(null);
+            show_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+
         VBox button_list = new VBox(10);
         button_list.setPrefWidth(200);
-        button_list.getChildren().addAll(order_button, data_button, report_button, exit_button);
+        button_list.getChildren().addAll(order_button, data_button, report_button, show_button, exit_button);
         button_list.setPadding(new Insets(30, 0, 0, 10));
-        
+
         VBox main_content = new VBox();
         main_content.getChildren().addAll(welcome_title, welcomeMsg);
         main_content.setPadding(new Insets(30, 0, 0, 0));
         // make layout for main page
         HBox main_layout = new HBox(45);
         // try {
-           Image image = new Image("https://cdn.discordapp.com/attachments/551214454587654155/838517821742252143/6e8e5fc722a47865e3d299a7b8090d5b.w973.h765.jpg");
-           BackgroundImage backgroundimage = new BackgroundImage(image, 
-                                             BackgroundRepeat.NO_REPEAT, 
-                                             BackgroundRepeat.NO_REPEAT, 
-                                             BackgroundPosition.DEFAULT, 
-                                                BackgroundSize.DEFAULT);
-  
-            // create Background
-            Background background = new Background(backgroundimage);
-            // set background
-            main_layout.setBackground(background);
-            
-            main_layout.getChildren().addAll(button_list, main_content);
-           
-       // } catch (FileNotFoundException  ex) {
-        	
-        	// join buttons and welcomeMsg
-            // main_layout.getChildren().addAll(button_list, welcomeMsg);
-            
-       // }
-        
+        Image image = new Image("https://cdn.discordapp.com/attachments/551214454587654155/838517821742252143/6e8e5fc722a47865e3d299a7b8090d5b.w973.h765.jpg");
+        BackgroundImage backgroundimage = new BackgroundImage(image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        // create Background
+        Background background = new Background(backgroundimage);
+        // set background
+        main_layout.setBackground(background);
+
+        main_layout.getChildren().addAll(button_list, main_content);
+
+        // } catch (FileNotFoundException  ex) {
+
+        // join buttons and welcomeMsg
+        // main_layout.getChildren().addAll(button_list, welcomeMsg);
+
+        // }
+
         main = new Scene(main_layout, 900, 600);
 
         /* -----------------------------------------------------------------------------
@@ -131,11 +176,11 @@ public class GUI extends Application {
 		 ----------------------------------------------------------------------------- */
         Label dataPageMsg = new Label("Please choose the data you would like to add/update/remove."
                 + "\n\nClick on the buttons on the left to proceed.");
-        
+
         Button goBack_button = new Button("<< Go back");
         goBack_button.setOnAction(e -> window.setScene(main));
         goBack_button.setPrefWidth(150);
-        
+
         Button overhead_button = new Button("Overhead");
         overhead_button.setOnAction(e -> window.setScene(overhead));
         overhead_button.setPrefWidth(150);
@@ -147,88 +192,78 @@ public class GUI extends Application {
         Button shipping_button = new Button("Shipping");
         shipping_button.setOnAction(e -> window.setScene(shipping));
         shipping_button.setPrefWidth(150);
-        
+
         Button exit_button1 = new Button("Exit");
         exit_button1.setOnAction(e -> System.exit(0));
         exit_button1.setPrefWidth(150);
-        
+
         VBox data_buttonlist = new VBox(10);
         data_buttonlist.setPrefWidth(200);
         data_buttonlist.getChildren().addAll(goBack_button, overhead_button, employee_button, shipping_button, exit_button1);
-        
+
         HBox data_layout = new HBox(50);
         data_layout.setPadding(new Insets(10, 0, 0, 10));
         data_layout.getChildren().addAll(data_buttonlist, dataPageMsg);
         data = new Scene(data_layout, 900, 600);
-        
+
 		/* -----------------------------------------------------------------------------
 		 Order Page
 		 ----------------------------------------------------------------------------- */
         Button goBack_button1 = new Button("<< Go back");
         goBack_button1.setOnAction(e -> window.setScene(main));
-        
+
         HBox order_layout = new HBox(20);
-        
+
         Label order_step1 = new Label("Enter Number of Units Wanted:");
         TextField units =  new TextField();
-        
+
         Label order_step2 = new Label("Choose Shipping Company:");
         shipCompany = new ComboBox<>();
-        shipCompany.setEditable(true);
-        String[] ids = DataAccess.returnColumn("shipping.csv", 1, 5);
+        shipCompany.setEditable(false);
+        String[] ids = DataAccess.returnColumn("D:\\shipping.csv", 0, 5);
         shipCompany.getItems().addAll(ids);
-        //TextField shipping_company =  new TextField();
-        //shipping_company.setPromptText("Enter shipping company ID");
-        
-        
+
         Label order_label = new Label("");
         Button submit_order = new Button("Submit");
-        
-        submit_order.setOnAction(e -> { 
-        	String units_input, shipping_ID;
-        	order_number = Order.generateOrderNumber();
-        	units_input = units.getText();
-        	shipping_ID = shipCompany.getValue();
-        	Order.newOrder(order_number, units_input, shipping_ID);
-        	order_label.setText("Order created. Your order number is " + order_number);
-        	
-        	// clear text in fields
-        	units.clear();
+
+        submit_order.setOnAction(e -> {
+            String units_input, shipping_ID;
+            order_number = Order.generateOrderNumber();
+            units_input = units.getText();
+            shipping_ID = shipCompany.getValue();
+            Order.newOrder(order_number, units_input, shipping_ID);
+            order_label.setText("Order created. Your order number is " + order_number);
+
+            // clear text in fields
+            units.clear();
             shipCompany.setValue(null);
         });
-        
+
         VBox order_steps = new VBox(10);
         order_steps.setPrefWidth(360);
         order_steps.getChildren().addAll(order_step1, units, order_step2, shipCompany, submit_order, order_label);
-        
+
         order_layout.getChildren().addAll(goBack_button1, order_steps);
         order_layout.setPadding(new Insets(10, 0, 0, 10));
         order = new Scene(order_layout, 900, 600);
-        
+
         /*Button goBack_button1 = new Button("<< Go back");
         goBack_button1.setOnAction(e -> window.setScene(main));
-
-
         HBox order_layout = new HBox(20);
-
         // New Order
         String orderID1, units1, shippingID1;
         Label newOrder_title = new Label("Make a new order");
-
         TextField text_orderID1 = new TextField();
         text_orderID1.setPromptText("Order ID");
         text_orderID1.setPrefColumnCount(10);
         orderID1 = text_orderID1.getText();
         //GridPane.setConstraints(text_orderID1,  0, 0);
-
         TextField text_units1 = new TextField();
         text_units1.setPromptText("# of units wanted");
         units1 = text_units1.getText();
-
         TextField text_shippingID1 = new TextField();
         text_shippingID1.setPromptText("Shipping company ID");
         shippingID1 = text_shippingID1.getText();
-
         Label order_label1 = new Label("");
         Button submit_order = new Button("Submit");
         submit_order.setOnAction(e -> {
@@ -239,30 +274,23 @@ public class GUI extends Application {
             text_units1.clear();
             text_shippingID1.clear();
         });
-
-
         VBox newOrder_texts = new VBox(10);
         newOrder_texts.setPrefWidth(200);
         newOrder_texts.getChildren().addAll(newOrder_title, text_orderID1, text_units1, text_shippingID1, submit_order, order_label1);
-
         // Update Order
         String orderID2, units2, shippingID2;
         Label updateOrder_title = new Label("Update order info");
-
         TextField text_orderID2 = new TextField();
         text_orderID2.setPromptText("Enter existing order ID");
         text_orderID2.setPrefColumnCount(10);
         orderID2 = text_orderID2.getText();
-
         TextField text_units2 = new TextField();
         text_units2.setPromptText("# of units wanted");
         units2 = text_units2.getText();
-
         TextField text_shippingID2 = new TextField();
         text_shippingID2.setPromptText("Shipping company ID");
         shippingID2 = text_shippingID2.getText();
 
-        
         Label order_label2 = new Label("");
         Button update_order = new Button("Update");
         update_order.setOnAction(e -> {
@@ -273,26 +301,21 @@ public class GUI extends Application {
             text_units2.clear();
             text_shippingID2.clear();
         });
-
         VBox updateOrder_texts = new VBox(10);
         updateOrder_texts.setPrefWidth(200);
         updateOrder_texts.getChildren().addAll(updateOrder_title, text_orderID2, text_units2, text_shippingID2, update_order, order_label2);
-
         // Check Order
         String orderID3;
         Label checkOrder_title = new Label("Check Order");
-
         TextField text_orderID3 = new TextField();
         text_orderID3.setPromptText("Enter existing order ID");
         orderID3 = text_orderID3.getText();
-
         TextField text_orderColumn = new TextField();
         text_orderColumn.setPromptText("Enter column #");
         try {
             order_column = Integer.parseInt(text_orderColumn.getText());
         } catch (NumberFormatException ex) { }
 
-        
         Label order_label3 = new Label("");
         Button check_order = new Button("Check");
         check_order.setOnAction(e -> {
@@ -301,15 +324,28 @@ public class GUI extends Application {
         	text_orderID3.clear();
         	text_orderColumn.clear();
         });
-
-
         VBox checkOrder_texts = new VBox(10);
         checkOrder_texts.setPrefWidth(200);
         checkOrder_texts.getChildren().addAll(checkOrder_title, text_orderID3, text_orderColumn, check_order, order_label3);
-
-
         order_layout.getChildren().addAll(goBack_button1, newOrder_texts, updateOrder_texts, checkOrder_texts);
         order = new Scene(order_layout, 900, 600);*/
+
+		/* -----------------------------------------------------------------------------
+		 Show Order History Page
+		 ----------------------------------------------------------------------------- */
+        //Button goBack_button5 = new Button("<< Go back");
+       // goBack_button1.setOnAction(e -> window.setScene(main));
+
+      //  HBox hbox_layout1 = new HBox(20);
+
+      //  Label history = new Label("Order History:");
+
+
+
+
+
+
+     //   show = new Scene(order_layout, 900, 600);
 
 
 		/* -----------------------------------------------------------------------------
@@ -326,35 +362,35 @@ public class GUI extends Application {
         TextField text_manufacturer1 = new TextField();
         text_manufacturer1.setPromptText("Manufacturer");
         text_manufacturer1.setPrefColumnCount(10);
-        
+
         TextField text_rent1 = new TextField();
         text_rent1.setPromptText("Rent");
-        
+
         TextField text_utilities1 = new TextField();
         text_utilities1.setPromptText("Utilities");
-        
+
         TextField text_insurance1 = new TextField();
         text_insurance1.setPromptText("Insurance");
-        
+
         TextField text_machinery1 = new TextField();
         text_machinery1.setPromptText("Machinery");
-        
+
 
         Label overhead_label1 = new Label("");
         Button submit_manufacturer = new Button("Submit");
-        
+
         submit_manufacturer.setOnAction(e -> {
-        	String manufacturer1, rent1, utilities1, insurance1, machinery1;
-        	manufacturer1 = text_manufacturer1.getText();
-        	rent1 = text_rent1.getText();
-        	utilities1 = text_utilities1.getText();
-        	insurance1 = text_insurance1.getText();
-        	machinery1 = text_machinery1.getText();
-        	
+            String manufacturer1, rent1, utilities1, insurance1, machinery1;
+            manufacturer1 = text_manufacturer1.getText();
+            rent1 = text_rent1.getText();
+            utilities1 = text_utilities1.getText();
+            insurance1 = text_insurance1.getText();
+            machinery1 = text_machinery1.getText();
+
             Overhead.newManufacturer(manufacturer1, rent1, utilities1, insurance1, machinery1);
             overhead_label1.setText("Manufacturer data has been added");
             System.out.println("Manufacturer data has been added");
-            
+
             text_manufacturer1.clear();
             text_rent1.clear();
             text_utilities1.clear();
@@ -373,35 +409,35 @@ public class GUI extends Application {
         TextField text_manufacturer2 = new TextField();
         text_manufacturer2.setPromptText("Manufacturer");
         text_manufacturer2.setPrefColumnCount(10);
-        
+
         TextField text_rent2 = new TextField();
         text_rent2.setPromptText("Rent");
-        
+
         TextField text_utilities2 = new TextField();
         text_utilities2.setPromptText("Utilities");
-        
+
         TextField text_insurance2 = new TextField();
         text_insurance2.setPromptText("Insurance");
-        
+
         TextField text_machinery2 = new TextField();
         text_machinery2.setPromptText("Machinery");
-        
+
 
         Label overhead_label2 = new Label("");
         Button update_manufacturer = new Button("Submit");
-        
+
         update_manufacturer.setOnAction(e -> {
-        	String manufacturer2, rent2, utilities2, insurance2, machinery2;
-        	manufacturer2 = text_manufacturer2.getText();
-        	rent2 = text_rent2.getText();
-        	utilities2 = text_utilities2.getText();
-        	insurance2 = text_insurance2.getText();
-        	machinery2 = text_machinery2.getText();
-            
-        	Overhead.newManufacturer(manufacturer2, rent2, utilities2, insurance2, machinery2);
+            String manufacturer2, rent2, utilities2, insurance2, machinery2;
+            manufacturer2 = text_manufacturer2.getText();
+            rent2 = text_rent2.getText();
+            utilities2 = text_utilities2.getText();
+            insurance2 = text_insurance2.getText();
+            machinery2 = text_machinery2.getText();
+
+            Overhead.newManufacturer(manufacturer2, rent2, utilities2, insurance2, machinery2);
             overhead_label2.setText("Manufacturer data has been updated");
             System.out.println("Manufacturer data has been updated");
-            
+
             text_manufacturer2.clear();
             text_rent2.clear();
             text_utilities2.clear();
@@ -431,10 +467,10 @@ public class GUI extends Application {
         Label overhead_label3 = new Label("");
         Button check_manufacturer = new Button("Check");
         check_manufacturer.setOnAction(e -> {
-        	String search_overhead = Overhead.check(manufacturer3, manuf_column);
-        	overhead_label3.setText(search_overhead);
-        	text_manufacturer3.clear();
-        	text_manufColumn.clear();
+            String search_overhead = Overhead.check(manufacturer3, manuf_column);
+            overhead_label3.setText(search_overhead);
+            text_manufacturer3.clear();
+            text_manufColumn.clear();
         });
 
 
@@ -463,34 +499,34 @@ public class GUI extends Application {
         TextField text_ID1 = new TextField();
         text_ID1.setPromptText("Employee ID");
         text_ID1.setPrefColumnCount(10);
-        
+
         TextField text_fname1 = new TextField();
         text_fname1.setPromptText("First name");
-        
+
         TextField text_lname1 = new TextField();
         text_lname1.setPromptText("Last name");
-        
+
         TextField text_pay1 = new TextField();
         text_pay1.setPromptText("Paycheck");
-        
+
         TextField text_position1 = new TextField();
         text_position1.setPromptText("Position");
-        
+
 
         Label employee_label1 = new Label("");
         Button submit_employee = new Button("Submit");
         submit_employee.setOnAction(e -> {
-        	String id1, fname1, lname1, pay1, position1;
-        	id1 = text_ID1.getText();
-        	fname1 = text_fname1.getText();
-        	lname1 = text_lname1.getText();
-        	pay1 = text_pay1.getText();
-        	position1 = text_position1.getText();
-            
-        	Employees.newEmployee(id1, fname1, lname1, pay1, position1);
+            String id1, fname1, lname1, pay1, position1;
+            id1 = text_ID1.getText();
+            fname1 = text_fname1.getText();
+            lname1 = text_lname1.getText();
+            pay1 = text_pay1.getText();
+            position1 = text_position1.getText();
+
+            Employees.newEmployee(id1, fname1, lname1, pay1, position1);
             employee_label1.setText("Employee data has been added");
             System.out.println("Employee data has been added");
-            
+
             text_ID1.clear();
             text_fname1.clear();
             text_lname1.clear();
@@ -509,35 +545,35 @@ public class GUI extends Application {
         TextField text_ID2 = new TextField();
         text_ID2.setPromptText("Enter existing employee ID");
         text_ID2.setPrefColumnCount(10);
-        
+
         TextField text_fname2 = new TextField();
         text_fname2.setPromptText("First name");
-        
+
         TextField text_lname2 = new TextField();
         text_lname2.setPromptText("Last name");
-        
+
         TextField text_pay2 = new TextField();
         text_pay2.setPromptText("Paycheck");
-        
+
         TextField text_position2 = new TextField();
         text_position2.setPromptText("Position");
-        
+
 
         Label employee_label2 = new Label("");
         Button update_employee = new Button("Update");
-        
+
         update_employee.setOnAction(e -> {
-        	String id2, fname2, lname2, pay2, position2;
-        	id2 = text_ID2.getText();
-        	fname2 = text_fname2.getText();
-        	lname2 = text_lname2.getText();
-        	pay2 = text_pay2.getText();
-        	position2 = text_position2.getText();
-            
-        	Employees.updateEmployee(id2, fname2, lname2, pay2, position2);
+            String id2, fname2, lname2, pay2, position2;
+            id2 = text_ID2.getText();
+            fname2 = text_fname2.getText();
+            lname2 = text_lname2.getText();
+            pay2 = text_pay2.getText();
+            position2 = text_position2.getText();
+
+            Employees.updateEmployee(id2, fname2, lname2, pay2, position2);
             employee_label2.setText("Employee info has been updated");
             System.out.println("Employee info has been updated");
-            
+
             text_ID2.clear();
             text_fname2.clear();
             text_lname2.clear();
@@ -563,12 +599,12 @@ public class GUI extends Application {
             employee_column = Integer.parseInt(text_column.getText());
         } catch (NumberFormatException ex) { }
 
-        
+
         Label employee_label3 = new Label("");
         Button check_employee = new Button("Check");
         check_employee.setOnAction(e -> {
-        	String search_employee = Employees.check(id3, employee_column);
-        	employee_label3.setText(search_employee);
+            String search_employee = Employees.check(id3, employee_column);
+            employee_label3.setText(search_employee);
         });
 
 
@@ -587,7 +623,7 @@ public class GUI extends Application {
 		 ----------------------------------------------------------------------------- */
         Button goBack_button4 = new Button("<< Go back");
         goBack_button4.setOnAction(e -> window.setScene(data));
-        
+
         // New Shipping
         Label shipping_title = new Label("New Shipping Information");
 
@@ -597,32 +633,32 @@ public class GUI extends Application {
 
         TextField text_shipName = new TextField();
         text_shipName.setPromptText("Full Name");
-        
+
         TextField text_shipAddy = new TextField();
         text_shipAddy.setPromptText("Address");
-        
+
         TextField text_shipPhone = new TextField();
         text_shipPhone.setPromptText("Phone Number");
-        
+
         TextField text_shipCost = new TextField();
         text_shipCost.setPromptText("Cost");
-                
-        
+
+
         Label shipping_label1 = new Label("");
         Button complete_shipDetails = new Button("Complete");
-        
+
         complete_shipDetails.setOnAction(e -> {
-        	String shipID, shipName, shipAddress, shipPhone, shipCost;
-        	shipID = text_ShipID.getText();
-        	shipName = text_shipName.getText();
-        	shipAddress = text_shipAddy.getText();
-        	shipPhone = text_shipPhone.getText();
-        	shipCost = text_shipCost.getText();
-        	
+            String shipID, shipName, shipAddress, shipPhone, shipCost;
+            shipID = text_ShipID.getText();
+            shipName = text_shipName.getText();
+            shipAddress = text_shipAddy.getText();
+            shipPhone = text_shipPhone.getText();
+            shipCost = text_shipCost.getText();
+
             Shipping.newShipping(shipID, shipName, shipAddress, shipPhone, shipCost);
             shipping_label1.setText("Shipping data has been added");
             System.out.println("Shipping data has been added");
-            
+
             text_ShipID.clear();
             text_shipAddy.clear();
             text_shipPhone.clear();
@@ -633,42 +669,42 @@ public class GUI extends Application {
         vBoxShip.setPrefWidth(200);
         vBoxShip.getChildren().addAll(shipping_title, text_ShipID, text_shipName, text_shipAddy, text_shipPhone, text_shipCost, complete_shipDetails, shipping_label1);
 
-        
+
         // Update Shipping
         Label shipping_title1 = new Label("Update Shipping Information");
 
         TextField text_ShipID1 = new TextField();
         text_ShipID1.setPromptText("Shipping ID");
         text_ShipID1.setPrefColumnCount(10);
-        
+
         TextField text_shipName1 = new TextField();
         text_shipName1.setPromptText("Full Name");
-        
+
         TextField text_shipAddy1 = new TextField();
         text_shipAddy1.setPromptText("Address");
-        
+
         TextField text_shipPhone1 = new TextField();
         text_shipPhone1.setPromptText("Phone Number");
-        
+
         TextField text_shipCost1 = new TextField();
         text_shipCost1.setPromptText("Cost");
-        
-        
+
+
         Label shipping_label2 = new Label("");
         Button update_shipDetails1 = new Button("Update");
-        
+
         update_shipDetails1.setOnAction(e -> {
-        	String shipID1, shipName1, shipAddress1, shipPhone1, shipCost1;
-        	shipID1 = text_ShipID1.getText();
-        	shipName1 = text_shipName1.getText();
-        	shipAddress1 = text_shipAddy1.getText();
-        	shipPhone1 = text_shipPhone1.getText();
-        	shipCost1 = text_shipCost1.getText();
-        	
+            String shipID1, shipName1, shipAddress1, shipPhone1, shipCost1;
+            shipID1 = text_ShipID1.getText();
+            shipName1 = text_shipName1.getText();
+            shipAddress1 = text_shipAddy1.getText();
+            shipPhone1 = text_shipPhone1.getText();
+            shipCost1 = text_shipCost1.getText();
+
             Shipping.updateShipping(shipID1, shipName1, shipAddress1, shipPhone1, shipCost1);
             shipping_label2.setText("Shipping data has been updated");
             System.out.println("Shipping data has been updated");
-            
+
             text_ShipID1.clear();
             text_shipName1.clear();
             text_shipAddy1.clear();
@@ -680,7 +716,7 @@ public class GUI extends Application {
         vBoxShip1.setPrefWidth(200);
         vBoxShip1.getChildren().addAll(shipping_title1, text_ShipID1, text_shipName1, text_shipAddy1, text_shipPhone1, text_shipCost1, update_shipDetails1, shipping_label2);
 
-        
+
         // Check Shipping (no need)
         String shipID3;
         Label checkShip_title = new Label("Check Shipping Information");
@@ -699,10 +735,10 @@ public class GUI extends Application {
         Label shipping_label3 = new Label("");
         Button check_shipping = new Button("Check");
         check_shipping.setOnAction(e -> {
-        	String search_shipping = Shipping.check(shipID3, ship_column);
-        	shipping_label3.setText(search_shipping);
-        	text_shipID3.clear();
-        	text_shipColumn.clear();
+            String search_shipping = Shipping.check(shipID3, ship_column);
+            shipping_label3.setText(search_shipping);
+            text_shipID3.clear();
+            text_shipColumn.clear();
         });
 
 
@@ -716,7 +752,7 @@ public class GUI extends Application {
         hboxShipping.setPadding(new Insets(10, 0, 0, 10));
 
         shipping = new Scene(hboxShipping, 900, 600);
-        
+
         window.setScene(main);
         window.show();
 
