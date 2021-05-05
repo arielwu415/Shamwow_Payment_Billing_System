@@ -1,5 +1,4 @@
-package sample;
-
+package application;
 import java.lang.Integer;
 import java.lang.NumberFormatException;
 import java.io.*;
@@ -180,26 +179,76 @@ public class GUI extends Application {
         Button goBack_button = new Button("<< Go back");
         goBack_button.setOnAction(e -> window.setScene(main));
         goBack_button.setPrefWidth(150);
+        goBack_button.setPrefHeight(30);
+        goBack_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button.setOnMouseEntered(e -> {
+        	goBack_button.setEffect(shadow);
+        	goBack_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button.setOnMouseExited(e -> {
+        	goBack_button.setEffect(null);
+        	goBack_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button overhead_button = new Button("Overhead");
         overhead_button.setOnAction(e -> window.setScene(overhead));
         overhead_button.setPrefWidth(150);
+        overhead_button.setPrefHeight(30);
+        overhead_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        overhead_button.setOnMouseEntered(e -> {
+        	overhead_button.setEffect(shadow);
+        	overhead_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        overhead_button.setOnMouseExited(e -> {
+        	overhead_button.setEffect(null);
+        	overhead_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button employee_button = new Button("Employee");
         employee_button.setOnAction(e -> window.setScene(employee));
         employee_button.setPrefWidth(150);
+        employee_button.setPrefHeight(30);
+        employee_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        employee_button.setOnMouseEntered(e -> {
+        	employee_button.setEffect(shadow);
+        	employee_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        employee_button.setOnMouseExited(e -> {
+        	employee_button.setEffect(null);
+        	employee_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button shipping_button = new Button("Shipping");
         shipping_button.setOnAction(e -> window.setScene(shipping));
         shipping_button.setPrefWidth(150);
+        shipping_button.setPrefHeight(30);
+        shipping_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        shipping_button.setOnMouseEntered(e -> {
+        	shipping_button.setEffect(shadow);
+        	shipping_button.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        shipping_button.setOnMouseExited(e -> {
+        	shipping_button.setEffect(null);
+        	shipping_button.setStyle("-fx-background-color: #000000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         Button exit_button1 = new Button("Exit");
         exit_button1.setOnAction(e -> System.exit(0));
         exit_button1.setPrefWidth(150);
+        exit_button1.setPrefHeight(30);
+        exit_button1.setStyle("-fx-background-color: #800000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        exit_button1.setOnMouseEntered(e -> {
+        	exit_button1.setEffect(shadow);
+        	exit_button1.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        exit_button1.setOnMouseExited(e -> {
+        	exit_button1.setEffect(null);
+        	exit_button1.setStyle("-fx-background-color: #800000; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         VBox data_buttonlist = new VBox(10);
         data_buttonlist.setPrefWidth(200);
-        data_buttonlist.getChildren().addAll(goBack_button, overhead_button, employee_button, shipping_button, exit_button1);
+        data_buttonlist.getChildren().addAll(goBack_button, overhead_button, employee_button, shipping_button);
 
         HBox data_layout = new HBox(50);
         data_layout.setPadding(new Insets(10, 0, 0, 10));
@@ -209,8 +258,23 @@ public class GUI extends Application {
 		/* -----------------------------------------------------------------------------
 		 Order Page
 		 ----------------------------------------------------------------------------- */
+        Label order_label = new Label("");
         Button goBack_button1 = new Button("<< Go back");
-        goBack_button1.setOnAction(e -> window.setScene(main));
+        goBack_button1.setOnAction(e -> {
+        	window.setScene(main);
+        	order_label.setText("");
+        });
+        goBack_button1.setPrefWidth(150);
+        goBack_button1.setPrefHeight(30);
+        goBack_button1.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button1.setOnMouseEntered(e -> {
+        	goBack_button1.setEffect(shadow);
+        	goBack_button1.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button1.setOnMouseExited(e -> {
+        	goBack_button1.setEffect(null);
+        	goBack_button1.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
 
         HBox order_layout = new HBox(20);
 
@@ -220,10 +284,10 @@ public class GUI extends Application {
         Label order_step2 = new Label("Choose Shipping Company:");
         shipCompany = new ComboBox<>();
         shipCompany.setEditable(false);
-        String[] ids = DataAccess.returnColumn("D:\\shipping.csv", 0, 5);
+        String[] ids = DataAccess.returnColumn("shipping.csv", 0, 5);
         shipCompany.getItems().addAll(ids);
 
-        Label order_label = new Label("");
+        
         Button submit_order = new Button("Submit");
 
         submit_order.setOnAction(e -> {
@@ -333,26 +397,57 @@ public class GUI extends Application {
 		/* -----------------------------------------------------------------------------
 		 Show Order History Page
 		 ----------------------------------------------------------------------------- */
-        //Button goBack_button5 = new Button("<< Go back");
-       // goBack_button1.setOnAction(e -> window.setScene(main));
+        Button goBack_button5 = new Button("<< Go back");
+        goBack_button5.setOnAction(e -> window.setScene(main));
+        goBack_button5.setPrefWidth(150);
+        goBack_button5.setPrefHeight(30);
+        goBack_button5.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button5.setOnMouseEntered(e -> {
+        	goBack_button5.setEffect(shadow);
+        	goBack_button5.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button5.setOnMouseExited(e -> {
+        	goBack_button5.setEffect(null);
+        	goBack_button5.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
 
-      //  HBox hbox_layout1 = new HBox(20);
+        HBox history_layout = new HBox(20);
 
-      //  Label history = new Label("Order History:");
-
-
-
+        Label history = new Label("Order History:");
+        
 
 
 
-     //   show = new Scene(order_layout, 900, 600);
+
+        history_layout.getChildren().add(goBack_button5);
+        history_layout.setPadding(new Insets(10, 0, 0, 10));
+        show = new Scene(history_layout, 900, 600);
 
 
 		/* -----------------------------------------------------------------------------
 		 Overhead Page
 		 ----------------------------------------------------------------------------- */
+        Label overhead_label1 = new Label("");
+        Label overhead_label2 = new Label("");
         Button goBack_button2 = new Button("<< Go back");
-        goBack_button2.setOnAction(e -> window.setScene(data));
+        goBack_button2.setOnAction(e -> {
+        	window.setScene(data);
+        	overhead_label1.setText("");
+        	overhead_label2.setText("");
+        });
+        goBack_button2.setPrefWidth(150);
+        goBack_button2.setPrefHeight(30);
+        goBack_button2.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button2.setOnMouseEntered(e -> {
+        	goBack_button2.setEffect(shadow);
+        	goBack_button2.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button2.setOnMouseExited(e -> {
+        	goBack_button2.setEffect(null);
+        	goBack_button2.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
 
         HBox overhead_layout = new HBox(20);
 
@@ -376,7 +471,7 @@ public class GUI extends Application {
         text_machinery1.setPromptText("Machinery");
 
 
-        Label overhead_label1 = new Label("");
+        
         Button submit_manufacturer = new Button("Submit");
 
         submit_manufacturer.setOnAction(e -> {
@@ -423,7 +518,6 @@ public class GUI extends Application {
         text_machinery2.setPromptText("Machinery");
 
 
-        Label overhead_label2 = new Label("");
         Button update_manufacturer = new Button("Submit");
 
         update_manufacturer.setOnAction(e -> {
@@ -487,8 +581,26 @@ public class GUI extends Application {
 		/* -----------------------------------------------------------------------------
 		 Employee Page
 		 ----------------------------------------------------------------------------- */
+        Label employee_label1 = new Label("");
+        Label employee_label2 = new Label("");
         Button goBack_button3 = new Button("<< Go back");
-        goBack_button3.setOnAction(e -> window.setScene(data));
+        goBack_button3.setOnAction(e -> {
+        	window.setScene(data);
+        	employee_label1.setText("");
+        	employee_label2.setText("");
+        });
+        goBack_button3.setPrefWidth(150);
+        goBack_button3.setPrefHeight(30);
+        goBack_button3.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button3.setOnMouseEntered(e -> {
+        	goBack_button3.setEffect(shadow);
+        	goBack_button3.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button3.setOnMouseExited(e -> {
+        	goBack_button3.setEffect(null);
+        	goBack_button3.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
 
 
         HBox employee_layout = new HBox(20);
@@ -513,7 +625,7 @@ public class GUI extends Application {
         text_position1.setPromptText("Position");
 
 
-        Label employee_label1 = new Label("");
+        
         Button submit_employee = new Button("Submit");
         submit_employee.setOnAction(e -> {
             String id1, fname1, lname1, pay1, position1;
@@ -559,7 +671,6 @@ public class GUI extends Application {
         text_position2.setPromptText("Position");
 
 
-        Label employee_label2 = new Label("");
         Button update_employee = new Button("Update");
 
         update_employee.setOnAction(e -> {
@@ -621,8 +732,26 @@ public class GUI extends Application {
 		/* -----------------------------------------------------------------------------
 		 Shipping Page
 		 ----------------------------------------------------------------------------- */
+        Label shipping_label1 = new Label("");
+        Label shipping_label2 = new Label("");        
         Button goBack_button4 = new Button("<< Go back");
-        goBack_button4.setOnAction(e -> window.setScene(data));
+        goBack_button4.setOnAction(e -> {
+        	window.setScene(data);
+        	shipping_label1.setText("");
+        	shipping_label2.setText("");
+        });
+        goBack_button4.setPrefWidth(150);
+        goBack_button4.setPrefHeight(30);
+        goBack_button4.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button4.setOnMouseEntered(e -> {
+        	goBack_button4.setEffect(shadow);
+        	goBack_button4.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button4.setOnMouseExited(e -> {
+        	goBack_button4.setEffect(null);
+        	goBack_button4.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        
 
         // New Shipping
         Label shipping_title = new Label("New Shipping Information");
@@ -644,7 +773,6 @@ public class GUI extends Application {
         text_shipCost.setPromptText("Cost");
 
 
-        Label shipping_label1 = new Label("");
         Button complete_shipDetails = new Button("Complete");
 
         complete_shipDetails.setOnAction(e -> {
@@ -660,6 +788,7 @@ public class GUI extends Application {
             System.out.println("Shipping data has been added");
 
             text_ShipID.clear();
+            text_shipName.clear();
             text_shipAddy.clear();
             text_shipPhone.clear();
             text_shipCost.clear();
@@ -690,7 +819,6 @@ public class GUI extends Application {
         text_shipCost1.setPromptText("Cost");
 
 
-        Label shipping_label2 = new Label("");
         Button update_shipDetails1 = new Button("Update");
 
         update_shipDetails1.setOnAction(e -> {
