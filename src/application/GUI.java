@@ -135,7 +135,7 @@ public class GUI extends Application {
         Label welcomeMsg = new Label("\nYou may make new order, look up or update cost information of materials, manufacturers, shippings, \noverheads and employees."
                 + "\n\nClick on the buttons on the left to proceed.");
         welcome_title.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 25));
-        //welcome_title.setTextFill(Color.rgb(14, 87, 155));
+        
 		/* -----------------------------------------------------------------------------
 		 Main Page
 		 ----------------------------------------------------------------------------- */
@@ -372,6 +372,7 @@ public class GUI extends Application {
         String[] ids = DataAccess.returnColumn("shipping.csv", 0, 5);
         //String[] ids = DataAccess.returnColumn("C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\shipping.csv", 0, 5);
         shipCompany.getItems().addAll(ids);
+        
         Label paidLabel = new Label("Paid?");
         yes = new RadioButton("Yes");
         no = new RadioButton("No");
@@ -379,24 +380,30 @@ public class GUI extends Application {
         yes.setToggleGroup(paid);
         no.setToggleGroup(paid);
         HBox toggleButtons = new HBox(20);
-        toggleButtons.getChildren().addAll(yes,no);
-
+        toggleButtons.getChildren().addAll(yes, no);
+        
+        TextField paidOrNo =  new TextField();
+        paidOrNo.setPromptText("Enter yes or no");
+        
+        
         Button submit_order = new Button("Submit");
         submit_order.setOnAction(e -> {
             String units_input, shipping_ID;
             order_number = Order.generateOrderNumber();
             units_input = units.getText();
             shipping_ID = shipCompany.getValue();
-            String paidStatus = paid.getSelectedToggle().getUserData().toString();
-            Order.newOrder(order_number, units_input, shipping_ID, paidStatus);
+            //String paidStatus = paid.getSelectedToggle().getUserData().toString();
+            String paidStatus = paidOrNo.getText();
+            Order.newOrder(order_number, units_input, shipping_ID, "yes");
             newOrder_label.setText("Order created. Your order number is " + order_number);
-            // clear text in fields
+            
             units.clear();
             shipCompany.setValue(null);
         });
+        
         VBox order_steps = new VBox(10);
         order_steps.setPrefWidth(360);
-        order_steps.getChildren().addAll(order_step1, units, order_step2, shipCompany, newOrder_label, toggleButtons, submit_order, paidLabel);
+        order_steps.getChildren().addAll(order_step1, units, order_step2, shipCompany, paidLabel, paidOrNo, submit_order, newOrder_label);
         newOrder_layout.getChildren().addAll(goBack_button1, order_steps);
         newOrder_layout.setPadding(new Insets(10, 0, 0, 10));
         newOrder = new Scene(newOrder_layout, 900, 600);
@@ -475,7 +482,7 @@ public class GUI extends Application {
 
         VBox updateOrder_texts = new VBox(10);
         updateOrder_texts.setPrefWidth(200);
-        updateOrder_texts.getChildren().addAll(updateOrder_title, text_orderID2, text_units2, text_shippingID2, update_order, order_label2);
+        updateOrder_texts.getChildren().addAll(updateOrder_title, text_orderID2, text_units2, text_shippingID2, text_paid2, update_order, order_label2);
 
 
         // Delete Order
