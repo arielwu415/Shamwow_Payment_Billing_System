@@ -1,4 +1,4 @@
-package application;
+package sample;
 // Peer Coded By Alson Kharel, Ariel Wu, Kelsey Coen
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -92,7 +92,7 @@ public class GUI extends Application {
     Scene main, newOrder, order, data, overhead, employee, shipping, show, search;
     private int employee_column, manuf_column, ship_column, order_column; // For check functions
     ComboBox<String> shipCompany;
-    RadioButton yes, no;
+    RadioButton yes, no, yes1, no1;
     String order_number;
     int employee_costs, shipping_costs, overhead_costs, total_cost;
     DropShadow shadow = new DropShadow();
@@ -101,7 +101,7 @@ public class GUI extends Application {
     private final ObservableList<Row> dataList
             = FXCollections.observableArrayList();
     private void readCSV() {
-        String CsvFile = "C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\order.csv";
+        String CsvFile = "D:\\order.csv";
         String FieldDelimiter = ",";
         BufferedReader br;
         try {
@@ -135,7 +135,7 @@ public class GUI extends Application {
         Label welcomeMsg = new Label("\nYou may make new order, look up or update cost information of materials, manufacturers, shippings, \noverheads and employees."
                 + "\n\nClick on the buttons on the left to proceed.");
         welcome_title.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.REGULAR, 25));
-        
+
 		/* -----------------------------------------------------------------------------
 		 Main Page
 		 ----------------------------------------------------------------------------- */
@@ -369,10 +369,10 @@ public class GUI extends Application {
         Label order_step2 = new Label("Choose Shipping Company:");
         shipCompany = new ComboBox<>();
         shipCompany.setEditable(false);
-        String[] ids = DataAccess.returnColumn("shipping.csv", 0, 5);
+        String[] ids = DataAccess.returnColumn("D:\\shipping.csv", 0, 5);
         //String[] ids = DataAccess.returnColumn("C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\shipping.csv", 0, 5);
         shipCompany.getItems().addAll(ids);
-        
+
         Label paidLabel = new Label("Paid?");
         yes = new RadioButton("Yes");
         no = new RadioButton("No");
@@ -381,29 +381,40 @@ public class GUI extends Application {
         no.setToggleGroup(paid);
         HBox toggleButtons = new HBox(20);
         toggleButtons.getChildren().addAll(yes, no);
-        
-        TextField paidOrNo =  new TextField();
-        paidOrNo.setPromptText("Enter yes or no");
-        
-        
+
+        //TextField paidOrNo =  new TextField();
+        //paidOrNo.setPromptText("Enter yes or no");
+        Label buttonNotPressed = new Label("Please check whether item is paid or not.");
+        buttonNotPressed.setVisible(false);
+
+
         Button submit_order = new Button("Submit");
         submit_order.setOnAction(e -> {
-            String units_input, shipping_ID;
-            order_number = Order.generateOrderNumber();
-            units_input = units.getText();
-            shipping_ID = shipCompany.getValue();
-            //String paidStatus = paid.getSelectedToggle().getUserData().toString();
-            String paidStatus = paidOrNo.getText();
-            Order.newOrder(order_number, units_input, shipping_ID, "yes");
-            newOrder_label.setText("Order created. Your order number is " + order_number);
-            
-            units.clear();
-            shipCompany.setValue(null);
+            if(paid.getSelectedToggle() != null)
+            {
+                String units_input, shipping_ID;
+                order_number = Order.generateOrderNumber();
+                units_input = units.getText();
+                shipping_ID = shipCompany.getValue();
+
+                String paidStatus = paid.getSelectedToggle().getUserData().toString();
+                //String paidStatus = paidOrNo.getText();
+                Order.newOrder(order_number, units_input, shipping_ID, "yes");
+                newOrder_label.setText("Order created. Your order number is " + order_number);
+
+                units.clear();
+                shipCompany.setValue(null);
+            }
+            else
+            {
+                buttonNotPressed.setVisible(true);
+            }
+
         });
-        
+
         VBox order_steps = new VBox(10);
         order_steps.setPrefWidth(360);
-        order_steps.getChildren().addAll(order_step1, units, order_step2, shipCompany, paidLabel, paidOrNo, submit_order, newOrder_label);
+        order_steps.getChildren().addAll(order_step1, units, order_step2, shipCompany, paidLabel, toggleButtons, submit_order, buttonNotPressed, newOrder_label);
         newOrder_layout.getChildren().addAll(goBack_button1, order_steps);
         newOrder_layout.setPadding(new Insets(10, 0, 0, 10));
         newOrder = new Scene(newOrder_layout, 900, 600);
@@ -419,21 +430,16 @@ public class GUI extends Application {
         /*
         // New Order
         String orderID1, units1, shippingID1;
-
         Label newOrder_title = new Label("Make a new order");
         TextField text_orderID1 = new TextField();
         text_orderID1.setPromptText("Order ID");
-
         orderID1 = text_orderID1.getText();
         TextField text_units1 = new TextField();
         text_units1.setPromptText("# of units wanted");
         units1 = text_units1.getText();
-
         TextField text_shippingID1 = new TextField();
         text_shippingID1.setPromptText("Shipping company ID");
         shippingID1 = text_shippingID1.getText();
-
-
         Button submit_order = new Button("Submit");
         submit_order.setOnAction(e -> {
             //Order.newOrder(orderID1, units1, shippingID1);
@@ -459,37 +465,57 @@ public class GUI extends Application {
         TextField text_shippingID2 = new TextField();
         text_shippingID2.setPromptText("Shipping company ID");
 
-        TextField text_paid2 = new TextField();
-        text_paid2.setPromptText("Paid or not (Enter yes or no)");
+        Label paidLabel1 = new Label("Paid?");
+        yes1 = new RadioButton("Yes");
+        no1 = new RadioButton("No");
+        ToggleGroup paid1 = new ToggleGroup();
+        yes1.setToggleGroup(paid1);
+        no1.setToggleGroup(paid1);
+        HBox toggleButtons1 = new HBox(20);
+        toggleButtons1.getChildren().addAll(yes1, no1);
+
+        Label buttonNotPressed1 = new Label("Please check whether item is paid.");
+        buttonNotPressed1.setVisible(false);
+
+        //TextField text_paid2 = new TextField();
+        //text_paid2.setPromptText("Paid or not (Enter yes or no)");
 
         Button update_order = new Button("Update");
         update_order.setOnAction(e -> {
-            String orderID2, units2, shippingID2, paid2;
-            orderID2 = text_orderID2.getText();
-            units2 = text_units2.getText();
-            shippingID2 = text_shippingID2.getText();
-            paid2 = text_paid2.getText();
+            if(paid1.getSelectedToggle() != null)
+            {
+                String orderID2, units2, shippingID2, paid2;
+                orderID2 = text_orderID2.getText();
+                units2 = text_units2.getText();
+                shippingID2 = text_shippingID2.getText();
+                paid2 = paid1.getSelectedToggle().getUserData().toString();
 
-            Order.updateOrder(orderID2, units2, shippingID2, paid2);
-            order_label1.setText("Order data has been updated");
-            System.out.println("Order data has been updated");
+                Order.updateOrder(orderID2, units2, shippingID2, paid2);
+                order_label1.setText("Order data has been updated");
+                System.out.println("Order data has been updated");
 
-            text_orderID2.clear();
-            text_units2.clear();
-            text_shippingID2.clear();
-            text_paid2.clear();
+                text_orderID2.clear();
+                text_units2.clear();
+                text_shippingID2.clear();
+                //text_paid2.clear();
+            }
+            else
+            {
+                buttonNotPressed1.setVisible(true);
+            }
+
         });
 
         VBox updateOrder_texts = new VBox(10);
         updateOrder_texts.setPrefWidth(200);
-        updateOrder_texts.getChildren().addAll(updateOrder_title, text_orderID2, text_units2, text_shippingID2, text_paid2, update_order, order_label2);
+        updateOrder_texts.getChildren().addAll(updateOrder_title, text_orderID2, text_units2, text_shippingID2, paidLabel1, toggleButtons1, update_order,buttonNotPressed1, order_label2);
 
 
         // Delete Order
         Label deleteOrder_title = new Label("Choose order number to delete");
         ComboBox<String> orderId = new ComboBox<>();
         orderId.setEditable(false);
-        String[] order_ids = DataAccess.returnColumn("order.csv", 0, 9);
+        String[] order_ids = DataAccess.returnColumn("D:\\order.csv", 0, 9);
         //String[] order_ids = DataAccess.returnColumn("C:\\Users\\Administrator\\IdeaProjects\\Shamwow_Payment_Billing_System\\src\\application\\order.csv", 0, 9);
         orderId.getItems().addAll(order_ids);
 
@@ -659,7 +685,7 @@ public class GUI extends Application {
         VBox newManuf_texts = new VBox(10);
         newManuf_texts.setPrefWidth(200);
         newManuf_texts.getChildren().addAll(newOverhead_title, text_manufacturer1, text_rent1, text_utilities1, text_insurance1, text_machinery1, submit_manufacturer, overhead_label1);
-        
+
         // Update Manufacturer
         Label updateOverhead_title = new Label("Update Existing Manufacturer");
         TextField text_manufacturer2 = new TextField();
@@ -693,7 +719,7 @@ public class GUI extends Application {
         VBox updateManuf_texts = new VBox(10);
         updateManuf_texts.setPrefWidth(200);
         updateManuf_texts.getChildren().addAll(updateOverhead_title, text_manufacturer2, text_rent2, text_utilities2, text_insurance2, text_machinery2, update_manufacturer, overhead_label2);
-        
+
         // Delete Manufacturer
         Label deleteManuf_title = new Label("Choose manufacturer ID to delete");
         ComboBox<String> manufDropdown = new ComboBox<>();
@@ -741,7 +767,7 @@ public class GUI extends Application {
         overhead_layout.getChildren().addAll(goBack_button2, newManuf_texts, updateManuf_texts, deleteManuf_texts);
         overhead_layout.setPadding(new Insets(10, 0, 0, 10));
         overhead = new Scene(overhead_layout, 900, 600);
-		
+
         /* -----------------------------------------------------------------------------
 		 Employee Page
 		 ----------------------------------------------------------------------------- */
@@ -801,7 +827,7 @@ public class GUI extends Application {
         VBox text_fields1 = new VBox(10);
         text_fields1.setPrefWidth(200);
         text_fields1.getChildren().addAll(newEmpl_title, text_ID1, text_fname1, text_lname1, text_pay1, text_position1, submit_employee, employee_label1);
-        
+
         // Update Employee
         Label updateEmpl_title = new Label("Update Employee Info");
         TextField text_ID2 = new TextField();
@@ -835,7 +861,7 @@ public class GUI extends Application {
         VBox text_fields2 = new VBox(10);
         text_fields2.setPrefWidth(200);
         text_fields2.getChildren().addAll(updateEmpl_title, text_ID2, text_fname2, text_lname2, text_pay2, text_position2, update_employee, employee_label2);
-        
+
         // Delete Employee
         Label deleteEmployee_title = new Label("Choose employee ID to delete");
         ComboBox<String> employeeDropdown = new ComboBox<>();
@@ -883,7 +909,7 @@ public class GUI extends Application {
         employee_layout.getChildren().addAll(goBack_button3, text_fields1, text_fields2, deleteEmployee_texts);
         employee_layout.setPadding(new Insets(10, 0, 0, 10));
         employee = new Scene(employee_layout, 900, 600);
-		
+
         /* -----------------------------------------------------------------------------
 		 Shipping Page
 		 ----------------------------------------------------------------------------- */
@@ -974,8 +1000,8 @@ public class GUI extends Application {
         VBox vBoxShip1 = new VBox(10);
         vBoxShip1.setPrefWidth(200);
         vBoxShip1.getChildren().addAll(shipping_title1, text_ShipID1, text_shipName1, text_shipAddy1, text_shipPhone1, text_shipCost1, update_shipDetails1, shipping_label2);
-        
-        
+
+
         // Delete Shipping
         Label deleteShipping_title = new Label("Choose shipping company ID to delete");
         ComboBox<String> shippingDropdown= new ComboBox<>();
