@@ -91,7 +91,7 @@ public class GUI extends Application {
     Stage window;
     Scene main, newOrder, order, data, overhead, employee, shipping, show, search;
     private int employee_column, manuf_column, ship_column, order_column; // For check functions
-    ComboBox<String> shipCompany;
+    ComboBox<String> shipCompany, findOrder;
     RadioButton yes, no, yes1, no1;
     String order_number;
     int employee_costs, shipping_costs, overhead_costs, total_cost;
@@ -211,8 +211,9 @@ public class GUI extends Application {
             show_button.setEffect(null);
             show_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
-        Button search_button = new Button("Search Orders");
-        search_button.setOnAction(e -> window.setScene(show));
+
+        Button search_button = new Button("Find Orders");
+        search_button.setOnAction(e -> window.setScene(search));
         search_button.setPrefWidth(150);
         search_button.setPrefHeight(40);
         search_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
@@ -224,9 +225,11 @@ public class GUI extends Application {
             search_button.setEffect(null);
             search_button.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
+
+
         VBox button_list = new VBox(10);
         button_list.setPrefWidth(200);
-        button_list.getChildren().addAll(order_button, data_button, report_button, show_button, exit_button);
+        button_list.getChildren().addAll(order_button, data_button, report_button, show_button, search_button, exit_button);
         button_list.setPadding(new Insets(30, 0, 0, 10));
         VBox main_content = new VBox();
         main_content.getChildren().addAll(welcome_title, welcomeMsg);
@@ -363,6 +366,7 @@ public class GUI extends Application {
             goBack_button1.setEffect(null);
             goBack_button1.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
+
         HBox newOrder_layout = new HBox(20);
         Label order_step1 = new Label("Enter Number of Units Wanted:");
         TextField units =  new TextField();
@@ -399,7 +403,7 @@ public class GUI extends Application {
 
                 String paidStatus = paid.getSelectedToggle().getUserData().toString();
                 //String paidStatus = paidOrNo.getText();
-                Order.newOrder(order_number, units_input, shipping_ID, "yes");
+                Order.newOrder(order_number, units_input, shipping_ID, paidStatus);
                 newOrder_label.setText("Order created. Your order number is " + order_number);
 
                 units.clear();
@@ -577,7 +581,10 @@ public class GUI extends Application {
             goBack_button5.setEffect(null);
             goBack_button5.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
         });
+
         Label history_Label = new Label("Order History:");
+        history_Label.setAlignment(Pos.TOP_CENTER);
+
         history_Label.setFont(new Font("Calibre", 45));
         Group root = new Group();
         TableColumn columnF1 = new TableColumn("Order ID");
@@ -621,10 +628,140 @@ public class GUI extends Application {
                 columnF1, columnF2, columnF3, columnF4, columnF5, columnF6, columnF7, columnF8, columnF9);
         VBox test = new VBox(10);
         test.setSpacing(10);
-        test.getChildren().addAll(goBack_button5,history_Label,tableView);
+        test.getChildren().addAll(goBack_button5, history_Label, tableView);
+        test.setPadding(new Insets(10, 0, 0, 20));
         root.getChildren().add(test);
         readCSV();
         show = new Scene(root, 900, 600);
+
+
+        /* -----------------------------------------------------------------------------
+		 Find Order Page
+		 ----------------------------------------------------------------------------- */
+        Button goBack_button7 = new Button("<< Go back");
+        goBack_button7.setOnAction(e -> window.setScene(main));
+        goBack_button7.setPrefWidth(150);
+        goBack_button7.setPrefHeight(30);
+        goBack_button7.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        goBack_button7.setOnMouseEntered(e -> {
+            goBack_button7.setEffect(shadow);
+            goBack_button7.setStyle("-fx-background-color: #f2980d; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+        goBack_button7.setOnMouseExited(e -> {
+            goBack_button7.setEffect(null);
+            goBack_button7.setStyle("-fx-background-color: #156cb8; -fx-border-width: 0; -fx-text-fill: #FFFFFF; -fx-border-radius: 20px; -fx-background-radius: 20px;");
+        });
+
+        VBox search_layout = new VBox(20);
+        VBox search_layout1 = new VBox(20);
+        BorderPane borderPane = new BorderPane();
+        findOrder = new ComboBox<>();
+        findOrder.setEditable(true);
+        findOrder.setPrefSize(500, 25);
+        Label searchLabel = new Label("Search for Orders");
+        Label nullLabel = new Label("Please enter an order ID.");
+        nullLabel.setVisible(false);
+        String[] findIDArray = DataAccess.returnColumn("D:\\order.csv", 0, 9);
+        findOrder.getItems().addAll(findIDArray);
+
+        VBox returnedSearch = new VBox(20);
+        Label search1 = new Label("");
+        Label search2 = new Label("");
+        Label search3 = new Label("");
+        Label search4 = new Label("");
+        Label search5 = new Label("");
+        Label search6 = new Label("");
+        Label search7 = new Label("");
+        Label search8 = new Label("");
+        Label errorLabel = new Label("Order ID not found. Please try another ID");
+
+        search1.setVisible(false);
+        search2.setVisible(false);
+        search3.setVisible(false);
+        search4.setVisible(false);
+        search5.setVisible(false);
+        search6.setVisible(false);
+        search7.setVisible(false);
+        search8.setVisible(false);
+        errorLabel.setVisible(false);
+        returnedSearch.getChildren().addAll(search1,search2,search3,search4,search5,search6,search7,search8, errorLabel);
+
+        Button orderSearchButton = new Button("Search");
+        orderSearchButton.setOnAction(e -> {
+
+            if(findOrder.getValue() != null)
+            {
+                String searchID;
+                int searchField, searchColumn;
+                searchID = findOrder.getValue();
+                searchField = 9;
+                String[] searchReturn = new String[8];
+
+                for(searchColumn = 1; searchColumn < searchField; searchColumn++)
+                {
+                    searchReturn[searchColumn-1] = Order.checkOrder(searchID, searchColumn);
+                    if(searchReturn[searchColumn-1].equals("Not Found") || searchReturn[searchColumn-1].equals("Error"))
+                    {
+                        errorLabel.setVisible(true);
+                        search1.setVisible(false);
+                        search2.setVisible(false);
+                        search3.setVisible(false);
+                        search4.setVisible(false);
+                        search5.setVisible(false);
+                        search6.setVisible(false);
+                        search7.setVisible(false);
+                        search8.setVisible(false);
+                    }
+                    else
+                    {
+                        errorLabel.setVisible(false);
+                    }
+                }
+
+                //String searchReturn = DataAccess.query(orderFilePath,searchID,searchColumn, searchField);
+                searchColumn = 1;
+                System.out.println("\n" + searchReturn[searchColumn]);
+                if(!errorLabel.isVisible())
+                {
+                    search1.setVisible(true);
+                    search2.setVisible(true);
+                    search3.setVisible(true);
+                    search4.setVisible(true);
+                    search5.setVisible(true);
+                    search6.setVisible(true);
+                    search7.setVisible(true);
+                    search8.setVisible(true);
+                    errorLabel.setVisible(false);
+
+                    search1.setText("Units: " + searchReturn[0]);
+                    search2.setText("Shipping Company ID: " + searchReturn[1]);
+                    search3.setText("Shipping Costs: " + searchReturn[2]);
+                    search4.setText("Material Costs: " + searchReturn[3]);
+                    search5.setText("Overhead Costs: " + searchReturn[4]);
+                    search6.setText("Labor Cost: " + searchReturn[5]);
+                    search7.setText("Price: " + searchReturn[6]);
+                    search8.setText("Paid (Yes or No): " + searchReturn[7]);
+
+                }
+
+            }
+            else
+            {
+                nullLabel.setVisible(true);
+            }
+
+        });
+
+        search_layout.getChildren().addAll(goBack_button7);
+        search_layout.setPadding(new Insets(10, 0, 0, 20));
+        search_layout1.getChildren().addAll(searchLabel, findOrder, orderSearchButton, nullLabel);
+        search_layout1.setAlignment(Pos.CENTER);
+        borderPane.setCenter(returnedSearch);
+        returnedSearch.setAlignment(Pos.CENTER);
+        borderPane.setTop(search_layout);
+        borderPane.setBottom(search_layout1);
+
+        search = new Scene(borderPane, 900, 600);
 
 		/* -----------------------------------------------------------------------------
 		 Overhead Page
