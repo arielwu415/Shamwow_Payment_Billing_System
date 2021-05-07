@@ -5,4 +5,7 @@
 alternative folder holds code that was scrapped
 
 
-src holds currently used code
+Application currently holds current file
+
+
+Developed using Java, JavaFX, and CSV as a nonrelational database
